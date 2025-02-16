@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { ProjectRepository } from "../../repositories/project-repository";
+import { ProjectRepository } from "src/modules/project/repositories/project-repository";
 
 interface GetProjectRequest {
   projectId: string;

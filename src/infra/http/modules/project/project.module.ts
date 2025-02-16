@@ -6,7 +6,7 @@ import { GetProjectsUseCase } from "src/modules/project/use-cases/get-projects-u
 import { ProjectController } from "./project.controller";
 import { UserModule } from "../user/user.module";
 import { DeleteProjectUseCase } from "src/modules/project/use-cases/delete-project-use-case/delete-project-use-case";
-import { EditProjectUseCase } from "src/modules/project/use-cases/edit-project-use-case/edit-project-use-case.spec";
+import { EditProjectUseCase } from "src/modules/project/use-cases/edit-project-use-case/edit-project-use-case";
 
 @Module({
   imports: [DatabaseModule],

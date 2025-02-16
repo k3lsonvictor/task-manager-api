@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException, ForbiddenException } from "@nestjs/common";
-import { ProjectRepository } from "../../repositories/project-repository";
-import { Project } from "../../entities/project";
+import { Project } from "@prisma/client";
+import { ProjectRepository } from "src/modules/project/repositories/project-repository";
 
 interface EditProjectRequest {
   projectId: string;

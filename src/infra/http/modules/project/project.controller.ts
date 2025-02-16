@@ -6,8 +6,8 @@ import { GetProjectsUseCase } from "src/modules/project/use-cases/get-projects-u
 import { AuthenticatedRequestModel } from "../auth/models/autheticated-request-model";
 import { CreateProjectBody } from "./dtos/create-project-body";
 import { ProjectViewModel } from "./view-model/project-view-model";
-import { EditProjectUseCase } from "src/modules/project/use-cases/edit-project-use-case/edit-project-use-case.spec";
 import { EditProjectBody } from "./dtos/edit-project-body";
+import { EditProjectUseCase } from "src/modules/project/use-cases/edit-project-use-case/edit-project-use-case";
 
 @Controller("projects")
 export class ProjectController {

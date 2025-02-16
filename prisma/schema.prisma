@@ -39,7 +39,7 @@ model Project {
 model Stage {
   id        String   @id @default(uuid())
   name      String
-  position  Int
+  // position  Int
   createdAt DateTime @default(now())
 
   projectId String
@@ -53,7 +53,7 @@ model Task {
   title       String
   description String?
   dueDate     DateTime?
-  status      String
+  // status      String
   position    Int
   createdAt   DateTime  @default(now())
 
