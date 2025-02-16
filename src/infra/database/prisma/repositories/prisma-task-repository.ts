@@ -3,48 +3,60 @@ import { PrismaService } from "../prisma.service";
 import { ProjectRepository } from "src/modules/project/repositories/project-repository";
 import { Project } from "src/modules/project/entities/project";
 import { PrismaProjectMapper } from "../mappers/prisma-project-mapper";
+import { TaskRepository } from "src/modules/task/repositories/task-repository";
+import { Task } from "src/modules/task/entities/task";
+import { PrismaTaskMapper } from "../mappers/prisma-task-mapper";
 
 @Injectable()
-export class PrismaProjectRepository implements ProjectRepository {
+export class PrismaTaskRepository implements TaskRepository {
   constructor(private prisma: PrismaService) {}
 
-  async create(project: Project): Promise<void> {
-    const projectRaw = PrismaProjectMapper.toPrisma(project);
+  async create(task: Task): Promise<void> {
+    const taskRaw = PrismaTaskMapper.toPrisma(task);
 
-    await this.prisma.project.create({
-      data: projectRaw,
+    await this.prisma.task.create({
+      data: taskRaw,
     });
   }
 
-  async findById(id: string): Promise<Project | null> {
-    const project = await this.prisma.project.findUnique({
+  async findById(id: string): Promise<Task | null> {
+    const task = await this.prisma.task.findUnique({
       where: { id },
     });
 
-    if (!project) return null;
+    if (!task) return null;
 
-    return PrismaProjectMapper.toDomain(project);
+    return PrismaTaskMapper.toDomain(task);
   }
 
-  async findAll(userId: string): Promise<Project[]> {
-    const projects = await this.prisma.project.findMany({
-      where: { userId },
+  async findAll(stageId: string): Promise<Task[]> {
+    const tasks = await this.prisma.task.findMany({
+      where: { stageId },
     });
 
-    return projects.map(PrismaProjectMapper.toDomain);
+    return tasks.map(PrismaTaskMapper.toDomain);
   }
 
-  async save(project: Project): Promise<void> {
-    const projectRaw = PrismaProjectMapper.toPrisma(project);
+  async findLastPosition(stageId: string): Promise<number> {
+    const lastTask = await this.prisma.task.findFirst({
+      where: { stageId },
+      orderBy: { position: "desc" },
+    });
 
-    await this.prisma.project.update({
-      where: { id: project.id },
-      data: projectRaw,
+    return lastTask ? lastTask.position : 0;
+  }
+
+  async save(task: Task): Promise<void> {
+    const taskRaw = PrismaTaskMapper.toPrisma(task);
+
+    await this.prisma.task.update({
+      where: { id: task.id },
+      data: taskRaw,
     });
   }
 
   async delete(id: string): Promise<void> {
-    await this.prisma.project.delete({
+    await this.prisma.task.delete({
       where: { id },
     });
   }

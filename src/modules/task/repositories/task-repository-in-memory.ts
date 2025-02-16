@@ -16,6 +16,14 @@ export class taskRepositoryInMemory implements TaskRepository {
     return task;
   }
 
+  async findLastPosition(stageId: string): Promise<number> {
+    const lastTask = this.tasks
+      .filter(task => task.stageId === stageId)
+      .reduce((max, task) => Math.max(max, Number(task.props.position)), 0);
+  
+    return lastTask;
+  }
+
   async findAll(stageId: string): Promise<Task[]> {
     const tasks = await this.tasks.filter(task => task.stageId === stageId);
 

@@ -1,24 +1,31 @@
-import { Project as ProjectRaw } from "@prisma/client"
-import { Project } from "src/modules/project/entities/project";
+import { Task as TaskRaw } from "@prisma/client"
+import { Task } from "src/modules/task/entities/task";
 
-export class PrismaProjectMapper {
-  static toPrisma({ createdAt, name, id, description, userId }: Project): ProjectRaw {
+export class PrismaTaskMapper {
+  static toPrisma({ createdAt, title, id, description, stageId, position, dueDate }: Task): TaskRaw {
     return {
       createdAt,
-      name,
+      title,
       description,
-      userId,
+      stageId,
+      position,
       id,
+      dueDate: dueDate ?? null, // Garante que seja compatível com o tipo esperado
     };
   }
 
-  static toDomain({ createdAt, name, id, description, userId }: ProjectRaw): Project {
-    return new Project({
-      createdAt,
-      name,
-      description,
-      userId
-    }, id
+  static toDomain({ createdAt, title, id, description, stageId, position, dueDate }: TaskRaw): Task {
+    return new Task(
+      {
+        createdAt,
+        title,
+        description,
+        stageId,
+        position,
+        dueDate
+      },
+      position,
+      id
     );
   }
 }

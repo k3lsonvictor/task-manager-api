@@ -6,6 +6,8 @@ import { ProjectRepository } from "src/modules/project/repositories/project-repo
 import { PrismaProjectRepository } from "./prisma/repositories/prisma-project-repository";
 import { StageRepository } from "src/modules/stage/repositories/stage-repository";
 import { PrismaStageRepository } from "./prisma/repositories/prisma-stage-repository";
+import { TaskRepository } from "src/modules/task/repositories/task-repository";
+import { PrismaTaskRepository } from "./prisma/repositories/prisma-task-repository";
 
 @Module({
   providers: [
@@ -22,8 +24,12 @@ import { PrismaStageRepository } from "./prisma/repositories/prisma-stage-reposi
       provide: StageRepository,
       useClass: PrismaStageRepository,
     },
+    {
+      provide: TaskRepository,
+      useClass: PrismaTaskRepository,
+    },
   ],
-  exports: [UserRepository, ProjectRepository, StageRepository]
+  exports: [UserRepository, ProjectRepository, StageRepository, TaskRepository]
 })
 
 export class DatabaseModule {}
