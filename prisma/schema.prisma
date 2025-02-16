@@ -20,8 +20,8 @@ model User {
   password  String
   createdAt DateTime @default(now())
 
-  projects      Project[]
-  taskAssignees TaskAssignee[]
+  projects Project[]
+  // taskAssignees TaskAssignee[]
 }
 
 model Project {
@@ -60,17 +60,17 @@ model Task {
   stageId String
   stage   Stage  @relation(fields: [stageId], references: [id], onDelete: Cascade)
 
-  assignees TaskAssignee[]
+  // assignees TaskAssignee[]
 }
 
-model TaskAssignee {
-  id         String   @id @default(uuid())
-  taskId     String
-  userId     String
-  assignedAt DateTime @default(now())
+// model TaskAssignee {
+//   id         String   @id @default(uuid())
+//   taskId     String
+//   userId     String
+//   assignedAt DateTime @default(now())
 
-  task Task @relation(fields: [taskId], references: [id], onDelete: Cascade)
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+//   task Task @relation(fields: [taskId], references: [id], onDelete: Cascade)
+//   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@unique([taskId, userId])
-}
+//   @@unique([taskId, userId])
+// }
