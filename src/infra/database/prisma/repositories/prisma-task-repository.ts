@@ -1,8 +1,5 @@
 import { Injectable } from "@nestjs/common";
 import { PrismaService } from "../prisma.service";
-import { ProjectRepository } from "src/modules/project/repositories/project-repository";
-import { Project } from "src/modules/project/entities/project";
-import { PrismaProjectMapper } from "../mappers/prisma-project-mapper";
 import { TaskRepository } from "src/modules/task/repositories/task-repository";
 import { Task } from "src/modules/task/entities/task";
 import { PrismaTaskMapper } from "../mappers/prisma-task-mapper";
@@ -37,6 +34,15 @@ export class PrismaTaskRepository implements TaskRepository {
     return tasks.map(PrismaTaskMapper.toDomain);
   }
 
+  async findByStageId(stageId: string): Promise<Task[]> {
+    const tasks = await this.prisma.task.findMany({
+      where: { stageId },
+      orderBy: { position: 'asc' }, // Ordena por posição (caso seja necessário)
+    });
+
+    return tasks.map(PrismaTaskMapper.toDomain);
+  }
+
   async findLastPosition(stageId: string): Promise<number> {
     const lastTask = await this.prisma.task.findFirst({
       where: { stageId },
@@ -53,6 +59,20 @@ export class PrismaTaskRepository implements TaskRepository {
       where: { id: task.id },
       data: taskRaw,
     });
+  }
+
+  async saveMany(tasks: Task[]): Promise<void> {
+    console.log(tasks);
+  
+    const taskData = tasks.map(PrismaTaskMapper.toPrisma);
+  
+    // Atualiza cada task individualmente
+    for (const task of taskData) {
+      await this.prisma.task.update({
+        where: { id: task.id },  // Identifica a task pela ID
+        data: task,  // Atualiza com os novos dados
+      });
+    }
   }
 
   async delete(id: string): Promise<void> {

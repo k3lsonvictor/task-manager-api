@@ -4,7 +4,6 @@ import { Stage } from "../../entities/stage";
 
 interface EditstageRequest {
   stageId: string;
-  projectId: string;
   name?: string;
 }
 
@@ -12,15 +11,11 @@ interface EditstageRequest {
 export class EditstageUseCase {
   constructor(private readonly stageRepository: StageRepository) {}
 
-  async execute({ stageId, projectId, name }: EditstageRequest): Promise<Stage> {
+  async execute({ stageId, name }: EditstageRequest): Promise<Stage> {
     const stage = await this.stageRepository.findById(stageId);
 
     if (!stage) {
       throw new NotFoundException("stage not found");
-    }
-
-    if (stage.projectId !== projectId) {
-      throw new ForbiddenException("You do not have permission to edit this stage");
     }
 
     if (name) stage.name = name;

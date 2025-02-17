@@ -13,9 +13,8 @@ export class CreateTaskUseCase {
   constructor(private taskRepository: TaskRepository) {}
 
   async execute({ title, description, stageId }: CreateTaskRequest) {
-    // Buscar a última posição da task dentro do stageId
-    const lastTask = await this.taskRepository.findLastPosition(stageId);
-    const lastPosition = lastTask ? lastTask : 0;
+    // Buscar a maior posição existente no stageId
+    const lastPosition = (await this.taskRepository.findLastPosition(stageId)) ?? -1; 
 
     // Criar a nova task com a posição ajustada
     const task = new Task(
@@ -23,8 +22,8 @@ export class CreateTaskUseCase {
         title,
         description,
         stageId,
-      },
-      lastPosition // Passa a última posição encontrada
+        position: lastPosition + 1, // 🔥 Garante que a nova posição seja a última
+      }
     );
 
     await this.taskRepository.create(task);
@@ -32,3 +31,4 @@ export class CreateTaskUseCase {
     return task;
   }
 }
+

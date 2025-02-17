@@ -8,6 +8,8 @@ import { EditstageUseCase } from "src/modules/stage/use-cases/edit-stage-use-cas
 import { CreateStageBody } from "./dtos/create-stage-body";
 import { StageViewModel } from "./view-model/stage-view-model";
 import { EditStageBody } from "./dtos/edit-stage-body";
+import { GetStagesUseCase } from "src/modules/stage/use-cases/get-stages-use-case/get-stages-use-case";
+import { StagesViewModel } from "./view-model/stages-view-model";
 
 @Controller("stages")
 export class StageController {
@@ -16,7 +18,7 @@ export class StageController {
     private editStageUseCase: EditstageUseCase,
     private deleteStageUseCase: DeleteStagetUseCase,
     private getStageUseCase: GetStageUseCase,
-    // private getStagesUseCase: GetStagesUseCase,
+    private getStagesUseCase: GetStagesUseCase,
   ) {}
 
   @Post()
@@ -31,6 +33,17 @@ export class StageController {
     });
 
     return StageViewModel.toHtpp(Stage);
+  }
+
+  @Get(":projectId")
+  async getStages(
+    @Param("projectId") projectId: string,
+  ) {
+    const stages = await this.getStagesUseCase.execute({
+      projectId,
+    })
+
+    return stages.map(StagesViewModel.toHttp);
   }
 
   @Get(":id")
@@ -49,11 +62,10 @@ export class StageController {
     @Param("id") stageId: string,
     @Body() body: EditStageBody
   ) {
-    const { name, projectId } = body;
+    const { name } = body;
 
     const Stage = await this.editStageUseCase.execute({
       stageId,
-      projectId,
       name
     });
 
