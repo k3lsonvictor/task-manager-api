@@ -1,42 +1,37 @@
-// import { StageRepositoryInMemory } from "../../repositories/stage-repository-in-memory";
-// import { DeleteStagetUseCase } from "./delete-stage-use-case";
+import { DeleteStagetUseCase } from "./delete-stage-use-case";
+import { StageRepositoryInMemory } from "../../repositories/stage-repository-in-memory";
+import { makeStage } from "../../factory/stage-factory";
+import { NotFoundException } from "@nestjs/common";
 
-// let deleteStageUseCase: DeleteStagetUseCase;
-// let stageRepositoryInMemory: StageRepositoryInMemory;
+describe("Delete Stage Use Case", () => {
+  let deleteStageUseCase: DeleteStagetUseCase;
+  let stageRepository: StageRepositoryInMemory;
 
-// describe("Delete Stage", () => {
-//   beforeEach(() => {
-//     stageRepositoryInMemory = new StageRepositoryInMemory();
-//     deleteStageUseCase = new DeleteStagetUseCase(stageRepositoryInMemory);
-//   });
+  beforeEach(() => {
+    stageRepository = new StageRepositoryInMemory();
+    deleteStageUseCase = new DeleteStagetUseCase(stageRepository);
+  });
 
-//   it('should delete stage when valid stageId and projectId are provided', async () => {
-//     const stageRepository = {
-//       findById: jest.fn().mockResolvedValue({ id: 'stage-1', projectId: 'project-1' }),
-//       delete: jest.fn().mockResolvedValue(undefined)
-//     } as unknown as StageRepositoryInMemory;
+  it("Should delete a stage successfully", async () => {
+    // Cria um estágio no repositório
+    const stageData = makeStage({ name: "Test Stage", projectId: "project-123" });
+    await stageRepository.create(stageData);
 
-//     const deleteStageUseCase = new DeleteStagetUseCase(stageRepository);
+    // Verifica se ele existe antes de deletar
+    const existingStage = await stageRepository.findById(stageData.id);
+    expect(existingStage).toBeTruthy();
 
-//     await deleteStageUseCase.execute({ stageId: 'stage-1', projectId: 'project-1' });
+    // Executa o caso de uso para deletar o estágio
+    await deleteStageUseCase.execute({ stageId: stageData.id });
 
-//     expect(stageRepository.findById).toHaveBeenCalledWith('stage-1');
-//     expect(stageRepository.delete).toHaveBeenCalledWith('stage-1');
-//   });
+    // Verifica se ele foi realmente removido
+    const deletedStage = await stageRepository.findById(stageData.id);
+    expect(deletedStage).toBeNull();
+  });
 
-//   it('should throw NotFoundException when stage does not exist', async () => {
-//     const stageRepository = {
-//       findById: jest.fn().mockResolvedValue(null),
-//       delete: jest.fn()
-//     } as unknown as StageRepositoryInMemory;
-
-//     const deleteStageUseCase = new DeleteStagetUseCase(stageRepository);
-
-//     await expect(
-//       deleteStageUseCase.execute({ stageId: 'invalid-id', projectId: 'project-1' })
-//     ).rejects.toThrow();
-
-//     expect(stageRepository.findById).toHaveBeenCalledWith('invalid-id');
-//     expect(stageRepository.delete).not.toHaveBeenCalled();
-//   });
-// });
+  it("Should throw NotFoundException if stage does not exist", async () => {
+    await expect(
+      deleteStageUseCase.execute({ stageId: "non-existent-id" })
+    ).rejects.toThrow(new NotFoundException("Stage not found"));
+  });
+});
