@@ -22,11 +22,12 @@ export class TaskController {
   async createTask(
     @Body() body: CreateTaskBody
   ) {
-    const { title, stageId } = body;
+    const { title, stageId, description } = body;
 
     const Task = await this.createTaskUseCase.execute({
       title,
       stageId,
+      description,
     });
 
     return TaskViewModel.toHtpp(Task);

@@ -20,7 +20,8 @@ export class StagesViewModel {
       tasks: tasks.map((task) => ({
         id: task.id,
         title: task.title, // Ajuste conforme a estrutura real de tasks
-        position: task.position        
+        position: task.position,
+        stageId: task.stageId      
       })),
     };
   }

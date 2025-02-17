@@ -11,16 +11,16 @@ interface SignInRequest {
 export class SignInUseCase {
   constructor(private jwtService: JwtService) {}
 
-  async execute({user}: SignInRequest) {
+  async execute({ user }: SignInRequest) {
     const payload: UserPayload = {
-      sub: user.id,
+      sub: user.id,  // O ID do usuário
       email: user.email,
       name: user.name,
-      createdAt: user.createdAt.toJSON()
+      createdAt: user.createdAt.toJSON(),
     };
 
     const jwtToken = this.jwtService.sign(payload);
 
-    return jwtToken;
+    return { access_token: jwtToken, userId: user.id };  // Retorna o token e o userId
   }
 }

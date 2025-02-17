@@ -13,11 +13,11 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   @UseGuards(LocalAuthGuard)
   async signIn(@Request() request: AuthRequestModel) {
-    const acess_token = await this.signInUseCase.execute({
+    const { access_token, userId } = await this.signInUseCase.execute({
       user: request.user,
-    })
+    });
 
-    return { acess_token };
+    // Retorna o token e o userId
+    return { access_token, userId };
   }
-
 }

@@ -8,4 +8,8 @@ export class CreateTaskBody {
   @IsString()
   @IsNotEmpty()
   stageId: string;
+
+  @IsString()
+  @IsOptional()
+  description?: string;
 }
