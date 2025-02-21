@@ -1,4 +1,4 @@
-import { User } from "@prisma/client";
+import { User } from "src/modules/user/entities/user";
 
 export class AuthRequestModel extends Request {
   user: User;
