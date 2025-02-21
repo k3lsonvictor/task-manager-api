@@ -7,9 +7,10 @@ import { JwtAuthGuard } from './infra/http/modules/auth/guards/jwt-auth.guard';
 import { ProjectModule } from './infra/http/modules/project/project.module';
 import { StageModule } from './infra/http/modules/stage/stage.module';
 import { TaskModule } from './infra/http/modules/task/task.module';
+import { RmqProcessModule } from './infra/http/modules/rabbitmq/rabbitmq.module';
 
 @Module({
-  imports: [UserModule, ProjectModule, StageModule, TaskModule, DatabaseModule, AuthModule],
+  imports: [UserModule, ProjectModule, StageModule, TaskModule, DatabaseModule, AuthModule, RmqProcessModule],
   controllers: [],
   providers: [
     {
