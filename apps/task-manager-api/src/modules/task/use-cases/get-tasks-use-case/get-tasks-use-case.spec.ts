@@ -1,8 +1,8 @@
-import { TaskRepositoryInMemory } from "../../repositories/task-repository-in-memory";
-import { makeTask } from "../../factory/task-factory";
-import { GetTasksUseCase } from "./get-tasks-use-case";
+import { TaskRepositoryInMemory } from '../../repositories/task-repository-in-memory';
+import { makeTask } from '../../factory/task-factory';
+import { GetTasksUseCase } from './get-tasks-use-case';
 
-describe("Get Tasks Use Case", () => {
+describe('Get Tasks Use Case', () => {
   let getTasksUseCase: GetTasksUseCase;
   let taskRepository: TaskRepositoryInMemory;
 
@@ -11,8 +11,8 @@ describe("Get Tasks Use Case", () => {
     getTasksUseCase = new GetTasksUseCase(taskRepository);
   });
 
-  it("Should return a list of tasks for a given stage", async () => {
-    const stageId = "stage-1";
+  it('Should return a list of tasks for a given stage', async () => {
+    const stageId = 'stage-1';
     const task1 = makeTask({ stageId });
     const task2 = makeTask({ stageId });
 
@@ -26,8 +26,8 @@ describe("Get Tasks Use Case", () => {
     expect(tasks[1].stageId).toBe(stageId);
   });
 
-  it("Should return an empty array if no tasks are found", async () => {
-    const tasks = await getTasksUseCase.execute("non-existent-stage");
+  it('Should return an empty array if no tasks are found', async () => {
+    const tasks = await getTasksUseCase.execute('non-existent-stage');
 
     expect(tasks).toEqual([]);
   });

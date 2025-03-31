@@ -1,8 +1,8 @@
-import { Injectable } from "@nestjs/common";
-import { PrismaService } from "../prisma.service";
-import { ProjectRepository } from "src/modules/project/repositories/project-repository";
-import { Project } from "src/modules/project/entities/project";
-import { PrismaProjectMapper } from "../mappers/prisma-project-mapper";
+import { Injectable } from '@nestjs/common';
+import { PrismaService } from '../prisma.service';
+import { ProjectRepository } from 'src/modules/project/repositories/project-repository';
+import { Project } from 'src/modules/project/entities/project';
+import { PrismaProjectMapper } from '../mappers/prisma-project-mapper';
 
 @Injectable()
 export class PrismaProjectRepository implements ProjectRepository {

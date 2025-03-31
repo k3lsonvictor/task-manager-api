@@ -1,7 +1,7 @@
-import { Injectable } from "@nestjs/common";
-import { UserRepository } from "src/modules/user/repositories/user-repository";
-import { compare } from "bcrypt"
-import { AuthValuesIncorrectException } from "../../exceptions/auth-values-incorrect-exceptions";
+import { Injectable } from '@nestjs/common';
+import { UserRepository } from 'src/modules/user/repositories/user-repository';
+import { compare } from 'bcryptjs';
+import { AuthValuesIncorrectException } from '../../exceptions/auth-values-incorrect-exceptions';
 
 interface ValidadeUserRequest {
   email: string;
@@ -12,7 +12,7 @@ interface ValidadeUserRequest {
 export class ValidateUserUseCase {
   //para verificar as credenciais é necessário a conexão com o banco de dados
   //deve então chamar o userRepository
-  constructor(private userRepository: UserRepository) { }
+  constructor(private userRepository: UserRepository) {}
   async execute({ email, password }: ValidadeUserRequest) {
     const user = await this.userRepository.findByEmail(email);
 
@@ -23,6 +23,5 @@ export class ValidateUserUseCase {
     if (!isPasswordCorrect) throw new AuthValuesIncorrectException();
 
     return user;
-
   }
 }

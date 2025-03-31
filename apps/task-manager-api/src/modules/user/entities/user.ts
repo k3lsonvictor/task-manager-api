@@ -1,11 +1,12 @@
-import { randomUUID } from "crypto";
-import { Replace } from "src/utils/replace";
+import { randomUUID } from 'crypto';
+import { Replace } from 'src/utils/replace';
 
 export interface UserSchema {
   name: string;
   email: string;
   password: string;
   createdAt: Date;
+  isVerified: boolean;
 }
 
 export class User {
@@ -15,7 +16,8 @@ export class User {
   constructor(props: Replace<UserSchema, { createdAt?: Date }>, id?: string) {
     this.props = {
       ...props,
-      createdAt: props.createdAt ? props.createdAt : new Date()
+      isVerified: props.isVerified ? props.isVerified : false,
+      createdAt: props.createdAt ? props.createdAt : new Date(),
     };
     this._id = id ? id : randomUUID();
   }
@@ -36,7 +38,7 @@ export class User {
     return this.props.password;
   }
 
-  get createdAt() :Date {
+  get createdAt(): Date {
     return this.props.createdAt;
   }
 
@@ -51,5 +53,4 @@ export class User {
   set password(password: string) {
     this.props.password = password;
   }
-
 }

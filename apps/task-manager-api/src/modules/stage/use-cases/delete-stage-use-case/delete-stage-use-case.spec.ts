@@ -1,9 +1,9 @@
-import { DeleteStagetUseCase } from "./delete-stage-use-case";
-import { StageRepositoryInMemory } from "../../repositories/stage-repository-in-memory";
-import { makeStage } from "../../factory/stage-factory";
-import { NotFoundException } from "@nestjs/common";
+import { DeleteStagetUseCase } from './delete-stage-use-case';
+import { StageRepositoryInMemory } from '../../repositories/stage-repository-in-memory';
+import { makeStage } from '../../factory/stage-factory';
+import { NotFoundException } from '@nestjs/common';
 
-describe("Delete Stage Use Case", () => {
+describe('Delete Stage Use Case', () => {
   let deleteStageUseCase: DeleteStagetUseCase;
   let stageRepository: StageRepositoryInMemory;
 
@@ -12,9 +12,12 @@ describe("Delete Stage Use Case", () => {
     deleteStageUseCase = new DeleteStagetUseCase(stageRepository);
   });
 
-  it("Should delete a stage successfully", async () => {
+  it('Should delete a stage successfully', async () => {
     // Cria um estágio no repositório
-    const stageData = makeStage({ name: "Test Stage", projectId: "project-123" });
+    const stageData = makeStage({
+      name: 'Test Stage',
+      projectId: 'project-123',
+    });
     await stageRepository.create(stageData);
 
     // Verifica se ele existe antes de deletar
@@ -29,9 +32,9 @@ describe("Delete Stage Use Case", () => {
     expect(deletedStage).toBeNull();
   });
 
-  it("Should throw NotFoundException if stage does not exist", async () => {
+  it('Should throw NotFoundException if stage does not exist', async () => {
     await expect(
-      deleteStageUseCase.execute({ stageId: "non-existent-id" })
-    ).rejects.toThrow(new NotFoundException("Stage not found"));
+      deleteStageUseCase.execute({ stageId: 'non-existent-id' }),
+    ).rejects.toThrow(new NotFoundException('Stage not found'));
   });
 });

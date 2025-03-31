@@ -1,6 +1,10 @@
-import { Injectable, NotFoundException, ForbiddenException } from "@nestjs/common";
-import { ProjectRepository } from "../../repositories/project-repository";
-import { Project } from "../../entities/project";
+import {
+  Injectable,
+  NotFoundException,
+  ForbiddenException,
+} from '@nestjs/common';
+import { ProjectRepository } from '../../repositories/project-repository';
+import { Project } from '../../entities/project';
 
 interface EditProjectRequest {
   projectId: string;
@@ -13,15 +17,22 @@ interface EditProjectRequest {
 export class EditProjectUseCase {
   constructor(private readonly projectRepository: ProjectRepository) {}
 
-  async execute({ projectId, userId, name, description }: EditProjectRequest): Promise<Project> {
+  async execute({
+    projectId,
+    userId,
+    name,
+    description,
+  }: EditProjectRequest): Promise<Project> {
     const project = await this.projectRepository.findById(projectId);
 
     if (!project) {
-      throw new NotFoundException("Project not found");
+      throw new NotFoundException('Project not found');
     }
 
     if (project.userId !== userId) {
-      throw new ForbiddenException("You do not have permission to edit this project");
+      throw new ForbiddenException(
+        'You do not have permission to edit this project',
+      );
     }
 
     // Atualiza apenas os campos fornecidos

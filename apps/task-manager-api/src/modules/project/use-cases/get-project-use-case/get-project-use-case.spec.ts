@@ -1,8 +1,8 @@
-import { GetProjectUseCase } from "./get-project-use-case";
-import { ProjectRepositoryInMemory } from "../../repositories/project-repository-in-memory";
-import { makeProject } from "../../factory/project-factory";
+import { GetProjectUseCase } from './get-project-use-case';
+import { ProjectRepositoryInMemory } from '../../repositories/project-repository-in-memory';
+import { makeProject } from '../../factory/project-factory';
 
-describe("Get Project Use Case", () => {
+describe('Get Project Use Case', () => {
   let getProjectUseCase: GetProjectUseCase;
   let projectRepository: ProjectRepositoryInMemory;
 
@@ -11,7 +11,7 @@ describe("Get Project Use Case", () => {
     getProjectUseCase = new GetProjectUseCase(projectRepository);
   });
 
-  it("Should return the project when user has permission", async () => {
+  it('Should return the project when user has permission', async () => {
     // 🔹 Criando um projeto no repositório em memória
     const project = makeProject({});
 
@@ -26,20 +26,20 @@ describe("Get Project Use Case", () => {
     expect(result).toEqual(project);
   });
 
-  it("Should throw an error if the project does not exist", async () => {
+  it('Should throw an error if the project does not exist', async () => {
     await expect(
       getProjectUseCase.execute({
-        projectId: "non-existent",
-        userId: "user-123",
-      })
-    ).rejects.toThrow("Project not found");
+        projectId: 'non-existent',
+        userId: 'user-123',
+      }),
+    ).rejects.toThrow('Project not found');
   });
 
-  it("Should throw an error if user does not have permission to access the project", async () => {
+  it('Should throw an error if user does not have permission to access the project', async () => {
     // 🔹 Criando um projeto no repositório com um userId diferente
     const project = makeProject({
-      name: "Project Name",
-      description: "Project Description",
+      name: 'Project Name',
+      description: 'Project Description',
     });
 
     await projectRepository.create(project);
@@ -48,8 +48,8 @@ describe("Get Project Use Case", () => {
     await expect(
       getProjectUseCase.execute({
         projectId: project.id,
-        userId: "user-999", // Usuário sem permissão
-      })
-    ).rejects.toThrow("No permition for recover the project");
+        userId: 'user-999', // Usuário sem permissão
+      }),
+    ).rejects.toThrow('No permition for recover the project');
   });
 });

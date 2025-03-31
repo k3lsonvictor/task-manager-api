@@ -1,5 +1,5 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
-import { TaskRepository } from "../../repositories/task-repository";
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { TaskRepository } from '../../repositories/task-repository';
 
 interface DeleteTaskRequest {
   taskId: string;
@@ -9,11 +9,11 @@ interface DeleteTaskRequest {
 export class DeleteTaskUseCase {
   constructor(private readonly TaskRepository: TaskRepository) {}
 
-  async execute({taskId}: DeleteTaskRequest) {
+  async execute({ taskId }: DeleteTaskRequest) {
     const task = await this.TaskRepository.findById(taskId);
 
     if (!task) {
-      throw new NotFoundException("Task not found");
+      throw new NotFoundException('Task not found');
     }
 
     await this.TaskRepository.delete(taskId);

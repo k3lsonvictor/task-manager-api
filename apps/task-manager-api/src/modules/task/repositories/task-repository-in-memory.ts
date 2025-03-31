@@ -1,5 +1,5 @@
-import { Task } from "../entities/task";
-import { TaskRepository } from "./task-repository";
+import { Task } from '../entities/task';
+import { TaskRepository } from './task-repository';
 
 export class TaskRepositoryInMemory implements TaskRepository {
   public tasks: Task[] = [];
@@ -38,7 +38,9 @@ export class TaskRepositoryInMemory implements TaskRepository {
   }
 
   async save(task: Task): Promise<void> {
-    const taskIndex = this.tasks.findIndex((currentTask) => currentTask.id === task.id);
+    const taskIndex = this.tasks.findIndex(
+      (currentTask) => currentTask.id === task.id,
+    );
 
     if (taskIndex >= 0) this.tasks[taskIndex] = task;
   }

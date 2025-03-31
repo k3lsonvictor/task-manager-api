@@ -1,8 +1,8 @@
-import { Injectable } from "@nestjs/common";
-import { UserRepository } from "../../repositories/user-repository";
-import { hash } from "bcrypt"
-import { User } from "../../entities/user";
-import { UserWithSameEmailExpection } from "../../expections/user-with-same-email-exception";
+import { Injectable } from '@nestjs/common';
+import { UserRepository } from '../../repositories/user-repository';
+import { hash } from 'bcryptjs';
+import { User } from '../../entities/user';
+import { UserWithSameEmailExpection } from '../../expections/user-with-same-email-exception';
 
 interface CreateUserRequest {
   email: string;
@@ -15,6 +15,7 @@ export class CreateUserUseCase {
   constructor(private userRepository: UserRepository) {}
 
   async execute({ email, password, name }: CreateUserRequest) {
+    console.log(password);
     const userAlreadyExist = await this.userRepository.findByEmail(email);
 
     if (userAlreadyExist) throw new UserWithSameEmailExpection();
@@ -22,9 +23,10 @@ export class CreateUserUseCase {
     const user = new User({
       name,
       email,
-      password: await hash(password, 10)
+      password: await hash(password, 10),
+      isVerified: false,
     });
-    
+
     await this.userRepository.create(user);
 
     return user;

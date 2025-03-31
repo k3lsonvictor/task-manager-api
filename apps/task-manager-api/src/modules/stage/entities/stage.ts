@@ -1,17 +1,17 @@
-import { randomUUID } from "crypto";
-import { Replace } from "src/utils/replace";
+import { randomUUID } from 'crypto';
+import { Replace } from 'src/utils/replace';
 
 export interface StageSchema {
   name: string;
   createdAt: Date;
-  projectId: string
+  projectId: string;
 }
 
 export class Stage {
   public props: StageSchema;
   public _id: string;
 
-  constructor(props: Replace<StageSchema, { createdAt?: Date}>, id?: string) {
+  constructor(props: Replace<StageSchema, { createdAt?: Date }>, id?: string) {
     this._id = id ?? randomUUID();
     this.props = {
       ...props,

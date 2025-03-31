@@ -1,8 +1,8 @@
-import { Injectable } from "@nestjs/common";
-import { PassportStrategy } from "@nestjs/passport";
-import { ExtractJwt, Strategy } from "passport-jwt";
-import { UserPayload } from "../models/user-payload";
-import { JwtNotDefinedException } from "../exceptions/jwt-not-defined-expections";
+import { Injectable } from '@nestjs/common';
+import { PassportStrategy } from '@nestjs/passport';
+import { ExtractJwt, Strategy } from 'passport-jwt';
+import { UserPayload } from '../models/user-payload';
+import { JwtNotDefinedException } from '../exceptions/jwt-not-defined-expections';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -12,7 +12,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     if (!jwtSecret) {
       throw new JwtNotDefinedException();
     }
-    
+
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,
@@ -21,6 +21,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate({ sub, ...payload }: UserPayload) {
-    return { id: sub, ...payload };
+    return await { id: sub, ...payload };
   }
 }

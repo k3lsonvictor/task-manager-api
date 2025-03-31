@@ -1,8 +1,8 @@
-import { Injectable } from "@nestjs/common";
-import { PrismaService } from "../prisma.service";
-import { StageRepository } from "src/modules/stage/repositories/stage-repository";
-import { Stage } from "src/modules/stage/entities/stage";
-import { PrismaStageMapper } from "../mappers/prisma-stage-mapper";
+import { Injectable } from '@nestjs/common';
+import { PrismaService } from '../prisma.service';
+import { StageRepository } from 'src/modules/stage/repositories/stage-repository';
+import { Stage } from 'src/modules/stage/entities/stage';
+import { PrismaStageMapper } from '../mappers/prisma-stage-mapper';
 
 @Injectable()
 export class PrismaStageRepository implements StageRepository {

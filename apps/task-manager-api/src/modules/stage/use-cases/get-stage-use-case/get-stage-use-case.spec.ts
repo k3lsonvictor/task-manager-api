@@ -1,8 +1,8 @@
-import { GetStageUseCase } from "./get-stage-use-case";
-import { StageRepositoryInMemory } from "../../repositories/stage-repository-in-memory";
-import { makeStage } from "../../factory/stage-factory";
+import { GetStageUseCase } from './get-stage-use-case';
+import { StageRepositoryInMemory } from '../../repositories/stage-repository-in-memory';
+import { makeStage } from '../../factory/stage-factory';
 
-describe("Get Stage Use Case", () => {
+describe('Get Stage Use Case', () => {
   let getStageUseCase: GetStageUseCase;
   let stageRepository: StageRepositoryInMemory;
 
@@ -11,7 +11,7 @@ describe("Get Stage Use Case", () => {
     getStageUseCase = new GetStageUseCase(stageRepository);
   });
 
-  it("Should return an existing stage", async () => {
+  it('Should return an existing stage', async () => {
     // Cria um estágio no repositório
     const stageData = makeStage({});
     await stageRepository.create(stageData);
@@ -23,9 +23,9 @@ describe("Get Stage Use Case", () => {
     expect(foundStage).toEqual(stageData);
   });
 
-  it("Should throw an error if stage does not exist", async () => {
+  it('Should throw an error if stage does not exist', async () => {
     await expect(
-      getStageUseCase.execute({ stageId: "non-existent-id" })
-    ).rejects.toThrow("Stage not found");
+      getStageUseCase.execute({ stageId: 'non-existent-id' }),
+    ).rejects.toThrow('Stage not found');
   });
 });

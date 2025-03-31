@@ -10,13 +10,21 @@ import { TaskModule } from './infra/http/modules/task/task.module';
 import { RmqProcessModule } from './infra/http/modules/rabbitmq/rabbitmq.module';
 
 @Module({
-  imports: [UserModule, ProjectModule, StageModule, TaskModule, DatabaseModule, AuthModule, RmqProcessModule],
+  imports: [
+    UserModule,
+    ProjectModule,
+    StageModule,
+    TaskModule,
+    DatabaseModule,
+    AuthModule,
+    RmqProcessModule,
+  ],
   controllers: [],
   providers: [
     {
       provide: APP_GUARD,
       useClass: JwtAuthGuard,
-    }
+    },
   ],
 })
 export class AppModule {}

@@ -1,6 +1,6 @@
-import { Injectable } from "@nestjs/common";
-import { ProjectRepository } from "../../repositories/project-repository";
-import { Project } from "../../entities/project";
+import { Injectable } from '@nestjs/common';
+import { ProjectRepository } from '../../repositories/project-repository';
+import { Project } from '../../entities/project';
 
 interface CreateProjectRequest {
   name: string;
@@ -10,16 +10,14 @@ interface CreateProjectRequest {
 
 @Injectable()
 export class CreateProjectUseCase {
-  constructor(
-    private projectRepository: ProjectRepository,
-  ) {}
+  constructor(private projectRepository: ProjectRepository) {}
 
-  async execute({name, description, userId}: CreateProjectRequest) {
+  async execute({ name, description, userId }: CreateProjectRequest) {
     const project = new Project({
       name,
       description,
-      userId
-    })
+      userId,
+    });
 
     await this.projectRepository.create(project);
 

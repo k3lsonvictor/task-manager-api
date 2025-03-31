@@ -1,5 +1,11 @@
-import { Optional } from "@nestjs/common";
-import { IsDate, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
+import { Optional } from '@nestjs/common';
+import {
+  IsDate,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 
 export class EditTaskBody {
   @IsOptional()

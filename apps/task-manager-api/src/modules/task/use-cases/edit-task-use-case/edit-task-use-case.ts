@@ -1,6 +1,6 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
-import { TaskRepository } from "../../repositories/task-repository";
-import { Task } from "../../entities/task";
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { TaskRepository } from '../../repositories/task-repository';
+import { Task } from '../../entities/task';
 
 interface EditTaskRequest {
   taskId: string;
@@ -15,11 +15,18 @@ interface EditTaskRequest {
 export class EditTaskUseCase {
   constructor(private readonly taskRepository: TaskRepository) {}
 
-  async execute({ taskId, stageId, title, description, position, dueDate }: EditTaskRequest): Promise<Task> {
+  async execute({
+    taskId,
+    stageId,
+    title,
+    description,
+    position,
+    dueDate,
+  }: EditTaskRequest): Promise<Task> {
     const task = await this.taskRepository.findById(taskId);
 
     if (!task) {
-      throw new NotFoundException("task not found");
+      throw new NotFoundException('task not found');
     }
 
     // Recupera todas as tasks do mesmo stageId e ordena pela posição
@@ -44,17 +51,16 @@ export class EditTaskUseCase {
       await this.taskRepository.save(task);
 
       // Ajusta as posições das tasks no estágio anterior se necessário
-      const updatedTasks = tasksInStage.filter(t => t.id !== taskId);
+      const updatedTasks = tasksInStage.filter((t) => t.id !== taskId);
       await this.taskRepository.saveMany(updatedTasks);
-      
     } else if (position !== undefined && position !== task.position) {
       // Se a posição foi alterada dentro do mesmo estágio
-      const updatedTasks = tasksInStage.filter(t => t.id !== taskId);
+      const updatedTasks = tasksInStage.filter((t) => t.id !== taskId);
 
       // Verifica se já existe uma task na nova posição e ajusta as posições subsequentes
-      const taskAtPosition = updatedTasks.find(t => t.position === position);
+      const taskAtPosition = updatedTasks.find((t) => t.position === position);
       if (taskAtPosition) {
-        updatedTasks.forEach(t => {
+        updatedTasks.forEach((t) => {
           if (t.position >= position) {
             t.position++; // Aumenta a posição das tasks subsequentes
           }
@@ -75,7 +81,10 @@ export class EditTaskUseCase {
   }
 
   private getNextAvailablePosition(tasksInStage: Task[]): number {
-    let maxPosition = tasksInStage.length > 0 ? Math.max(...tasksInStage.map(task => task.position)) : 0;
+    const maxPosition =
+      tasksInStage.length > 0
+        ? Math.max(...tasksInStage.map((task) => task.position))
+        : 0;
     return maxPosition + 1;
   }
 }

@@ -1,9 +1,9 @@
-import { TaskRepositoryInMemory } from "../../repositories/task-repository-in-memory";
-import { makeTask } from "../../factory/task-factory";
-import { EditTaskUseCase } from "./edit-task-use-case";
-import { NotFoundException } from "@nestjs/common";
+import { TaskRepositoryInMemory } from '../../repositories/task-repository-in-memory';
+import { makeTask } from '../../factory/task-factory';
+import { EditTaskUseCase } from './edit-task-use-case';
+import { NotFoundException } from '@nestjs/common';
 
-describe("Edit Task Use Case", () => {
+describe('Edit Task Use Case', () => {
   let editTaskUseCase: EditTaskUseCase;
   let taskRepository: TaskRepositoryInMemory;
 
@@ -12,34 +12,37 @@ describe("Edit Task Use Case", () => {
     editTaskUseCase = new EditTaskUseCase(taskRepository);
   });
 
-  it("Should edit task title and description successfully", async () => {
-    const task = makeTask({ title: "Old Title", description: "Old Description" });
+  it('Should edit task title and description successfully', async () => {
+    const task = makeTask({
+      title: 'Old Title',
+      description: 'Old Description',
+    });
     await taskRepository.create(task);
 
     const updatedTask = await editTaskUseCase.execute({
       taskId: task.id,
       stageId: task.stageId,
-      title: "New Title",
-      description: "New Description",
+      title: 'New Title',
+      description: 'New Description',
     });
 
-    expect(updatedTask.title).toBe("New Title");
-    expect(updatedTask.description).toBe("New Description");
+    expect(updatedTask.title).toBe('New Title');
+    expect(updatedTask.description).toBe('New Description');
   });
 
-  it("Should throw NotFoundException if task does not exist", async () => {
+  it('Should throw NotFoundException if task does not exist', async () => {
     await expect(
       editTaskUseCase.execute({
-        taskId: "non-existent-task",
-        stageId: "some-stage",
-        title: "Updated Title",
-      })
+        taskId: 'non-existent-task',
+        stageId: 'some-stage',
+        title: 'Updated Title',
+      }),
     ).rejects.toThrow(NotFoundException);
   });
 
-  it("Should move task to a new stage and update position", async () => {
-    const oldStageId = "stage-1";
-    const newStageId = "stage-2";
+  it('Should move task to a new stage and update position', async () => {
+    const oldStageId = 'stage-1';
+    const newStageId = 'stage-2';
 
     const task = makeTask({ stageId: oldStageId, position: 1 });
     await taskRepository.create(task);
@@ -53,8 +56,8 @@ describe("Edit Task Use Case", () => {
     expect(updatedTask.position).toBe(1); // Primeira posição no novo estágio
   });
 
-  it("Should reorder tasks correctly when position is changed", async () => {
-    const stageId = "stage-1";
+  it('Should reorder tasks correctly when position is changed', async () => {
+    const stageId = 'stage-1';
 
     const task1 = makeTask({ stageId, position: 0 });
     const task2 = makeTask({ stageId, position: 1 });
@@ -75,8 +78,8 @@ describe("Edit Task Use Case", () => {
 
     // Verifica se as outras tarefas foram ajustadas corretamente
     const updatedTasks = await taskRepository.findByStageId(stageId);
-    expect(updatedTasks.find(t => t.id === task1.id)?.position).toBe(0);
-    expect(updatedTasks.find(t => t.id === task2.id)?.position).toBe(2);
-    expect(updatedTasks.find(t => t.id === task3.id)?.position).toBe(1);
+    expect(updatedTasks.find((t) => t.id === task1.id)?.position).toBe(0);
+    expect(updatedTasks.find((t) => t.id === task2.id)?.position).toBe(2);
+    expect(updatedTasks.find((t) => t.id === task3.id)?.position).toBe(1);
   });
 });

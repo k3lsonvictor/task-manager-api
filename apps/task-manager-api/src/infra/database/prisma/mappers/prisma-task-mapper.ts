@@ -1,8 +1,16 @@
-import { Task as TaskRaw } from "@prisma/client"
-import { Task } from "src/modules/task/entities/task";
+import { Task as TaskRaw } from '@prisma/client';
+import { Task } from 'src/modules/task/entities/task';
 
 export class PrismaTaskMapper {
-  static toPrisma({ createdAt, title, id, description, stageId, position, dueDate }: Task): TaskRaw {
+  static toPrisma({
+    createdAt,
+    title,
+    id,
+    description,
+    stageId,
+    position,
+    dueDate,
+  }: Task): TaskRaw {
     return {
       createdAt,
       title,
@@ -14,7 +22,15 @@ export class PrismaTaskMapper {
     };
   }
 
-  static toDomain({ createdAt, title, id, description, stageId, position, dueDate }: TaskRaw): Task {
+  static toDomain({
+    createdAt,
+    title,
+    id,
+    description,
+    stageId,
+    position,
+    dueDate,
+  }: TaskRaw): Task {
     return new Task(
       {
         createdAt,
@@ -22,10 +38,10 @@ export class PrismaTaskMapper {
         description,
         stageId,
         position,
-        dueDate
+        dueDate,
       },
       position,
-      id
+      id,
     );
   }
 }

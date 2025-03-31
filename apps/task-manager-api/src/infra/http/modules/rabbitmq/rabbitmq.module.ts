@@ -16,9 +16,9 @@ import { AppService } from './rabbitmq.service';
           // queue: "fila_teste",
           // noAck: false,
           queueOptions: { durable: false },
-        }
-      }
-    ])
+        },
+      },
+    ]),
   ],
   controllers: [RmqProcessController],
   providers: [RabbitmqService, AppService],

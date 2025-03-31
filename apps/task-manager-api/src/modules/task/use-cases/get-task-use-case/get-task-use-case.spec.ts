@@ -1,8 +1,8 @@
-import { TaskRepositoryInMemory } from "../../repositories/task-repository-in-memory";
-import { makeTask } from "../../factory/task-factory";
-import { GetTaskUseCase } from "./get-task-use-case";
+import { TaskRepositoryInMemory } from '../../repositories/task-repository-in-memory';
+import { makeTask } from '../../factory/task-factory';
+import { GetTaskUseCase } from './get-task-use-case';
 
-describe("Get Task Use Case", () => {
+describe('Get Task Use Case', () => {
   let getTaskUseCase: GetTaskUseCase;
   let taskRepository: TaskRepositoryInMemory;
 
@@ -11,7 +11,7 @@ describe("Get Task Use Case", () => {
     getTaskUseCase = new GetTaskUseCase(taskRepository);
   });
 
-  it("Should return a task successfully", async () => {
+  it('Should return a task successfully', async () => {
     const task = makeTask({});
     await taskRepository.create(task);
 
@@ -22,9 +22,9 @@ describe("Get Task Use Case", () => {
     expect(foundTask.title).toBe(task.title);
   });
 
-  it("Should throw an error if task does not exist", async () => {
+  it('Should throw an error if task does not exist', async () => {
     await expect(
-      getTaskUseCase.execute({ taskId: "non-existent-task" })
-    ).rejects.toThrow("task not found");
+      getTaskUseCase.execute({ taskId: 'non-existent-task' }),
+    ).rejects.toThrow('task not found');
   });
 });

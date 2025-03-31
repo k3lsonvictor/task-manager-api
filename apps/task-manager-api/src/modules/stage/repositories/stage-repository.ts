@@ -1,4 +1,4 @@
-import { Stage } from "../entities/stage";
+import { Stage } from '../entities/stage';
 
 export abstract class StageRepository {
   abstract create(stage: Stage): Promise<void>;

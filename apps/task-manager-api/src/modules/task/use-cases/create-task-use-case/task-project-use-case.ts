@@ -1,6 +1,6 @@
-import { Injectable } from "@nestjs/common";
-import { TaskRepository } from "../../repositories/task-repository";
-import { Task } from "../../entities/task";
+import { Injectable } from '@nestjs/common';
+import { TaskRepository } from '../../repositories/task-repository';
+import { Task } from '../../entities/task';
 
 interface CreateTaskRequest {
   title: string;
@@ -14,21 +14,19 @@ export class CreateTaskUseCase {
 
   async execute({ title, description, stageId }: CreateTaskRequest) {
     // Buscar a maior posição existente no stageId
-    const lastPosition = (await this.taskRepository.findLastPosition(stageId)) ?? -1; 
+    const lastPosition =
+      (await this.taskRepository.findLastPosition(stageId)) ?? -1;
 
     // Criar a nova task com a posição ajustada
-    const task = new Task(
-      {
-        title,
-        description,
-        stageId,
-        position: lastPosition + 1, // 🔥 Garante que a nova posição seja a última
-      }
-    );
+    const task = new Task({
+      title,
+      description,
+      stageId,
+      position: lastPosition + 1, // 🔥 Garante que a nova posição seja a última
+    });
 
     await this.taskRepository.create(task);
 
     return task;
   }
 }
-

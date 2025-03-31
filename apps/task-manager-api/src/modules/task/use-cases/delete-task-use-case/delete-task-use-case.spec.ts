@@ -1,9 +1,9 @@
-import { TaskRepositoryInMemory } from "../../repositories/task-repository-in-memory";
-import { makeTask } from "../../factory/task-factory";
-import { DeleteTaskUseCase } from "./delete-task-use-case";
-import { NotFoundException } from "@nestjs/common";
+import { TaskRepositoryInMemory } from '../../repositories/task-repository-in-memory';
+import { makeTask } from '../../factory/task-factory';
+import { DeleteTaskUseCase } from './delete-task-use-case';
+import { NotFoundException } from '@nestjs/common';
 
-describe("Delete Task Use Case", () => {
+describe('Delete Task Use Case', () => {
   let deleteTaskUseCase: DeleteTaskUseCase;
   let taskRepository: TaskRepositoryInMemory;
 
@@ -12,7 +12,7 @@ describe("Delete Task Use Case", () => {
     deleteTaskUseCase = new DeleteTaskUseCase(taskRepository);
   });
 
-  it("Should delete a task successfully", async () => {
+  it('Should delete a task successfully', async () => {
     const task = makeTask({});
     await taskRepository.create(task);
 
@@ -23,9 +23,9 @@ describe("Delete Task Use Case", () => {
     expect(deletedTask).toBeFalsy();
   });
 
-  it("Should throw NotFoundException if task does not exist", async () => {
+  it('Should throw NotFoundException if task does not exist', async () => {
     await expect(
-      deleteTaskUseCase.execute({ taskId: "non-existent-task" })
+      deleteTaskUseCase.execute({ taskId: 'non-existent-task' }),
     ).rejects.toThrow(NotFoundException);
   });
 });

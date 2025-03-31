@@ -1,4 +1,4 @@
-import { hash } from 'bcrypt';
+import { hash } from 'bcryptjs';
 import { ValidateUserUseCase } from './validate-user-use-case';
 import { UserRepositoryInMemory } from 'src/modules/user/repositories/user-repository-in-memory';
 import { makeUser } from 'src/modules/user/factory/user-factory';
@@ -43,14 +43,14 @@ describe('Validate User', () => {
       validateUserUseCase.execute({
         email: 'incorrect@gmail.com',
         password: userPasswordWithoutEncryption,
-      })
+      }),
     ).rejects.toThrow(AuthValuesIncorrectException);
 
     await expect(
       validateUserUseCase.execute({
         email: user.email,
         password: 'incorrect password',
-      })
+      }),
     ).rejects.toThrow(AuthValuesIncorrectException);
   });
 });

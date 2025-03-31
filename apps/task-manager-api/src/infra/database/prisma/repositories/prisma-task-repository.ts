@@ -1,8 +1,8 @@
-import { Injectable } from "@nestjs/common";
-import { PrismaService } from "../prisma.service";
-import { TaskRepository } from "src/modules/task/repositories/task-repository";
-import { Task } from "src/modules/task/entities/task";
-import { PrismaTaskMapper } from "../mappers/prisma-task-mapper";
+import { Injectable } from '@nestjs/common';
+import { PrismaService } from '../prisma.service';
+import { TaskRepository } from 'src/modules/task/repositories/task-repository';
+import { Task } from 'src/modules/task/entities/task';
+import { PrismaTaskMapper } from '../mappers/prisma-task-mapper';
 
 @Injectable()
 export class PrismaTaskRepository implements TaskRepository {
@@ -46,7 +46,7 @@ export class PrismaTaskRepository implements TaskRepository {
   async findLastPosition(stageId: string): Promise<number> {
     const lastTask = await this.prisma.task.findFirst({
       where: { stageId },
-      orderBy: { position: "desc" },
+      orderBy: { position: 'desc' },
     });
 
     return lastTask ? lastTask.position : 0;
@@ -63,14 +63,14 @@ export class PrismaTaskRepository implements TaskRepository {
 
   async saveMany(tasks: Task[]): Promise<void> {
     console.log(tasks);
-  
+
     const taskData = tasks.map(PrismaTaskMapper.toPrisma);
-  
+
     // Atualiza cada task individualmente
     for (const task of taskData) {
       await this.prisma.task.update({
-        where: { id: task.id },  // Identifica a task pela ID
-        data: task,  // Atualiza com os novos dados
+        where: { id: task.id }, // Identifica a task pela ID
+        data: task, // Atualiza com os novos dados
       });
     }
   }

@@ -1,5 +1,5 @@
-import { Injectable } from "@nestjs/common";
-import { ProjectRepository } from "../../repositories/project-repository";
+import { Injectable } from '@nestjs/common';
+import { ProjectRepository } from '../../repositories/project-repository';
 
 @Injectable()
 export class GetProjectsUseCase {
@@ -8,7 +8,7 @@ export class GetProjectsUseCase {
   async execute(userId: string) {
     const projects = await this.projectRepository.findAll(userId);
 
-    if(!projects) return [];
+    if (!projects) return [];
 
     return projects;
   }

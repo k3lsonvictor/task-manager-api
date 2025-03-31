@@ -1,6 +1,10 @@
-import { Injectable, NotFoundException, ForbiddenException } from "@nestjs/common";
-import { StageRepository } from "../../repositories/stage-repository";
-import { Stage } from "../../entities/stage";
+import {
+  Injectable,
+  NotFoundException,
+  ForbiddenException,
+} from '@nestjs/common';
+import { StageRepository } from '../../repositories/stage-repository';
+import { Stage } from '../../entities/stage';
 
 interface EditstageRequest {
   stageId: string;
@@ -15,7 +19,7 @@ export class EditstageUseCase {
     const stage = await this.stageRepository.findById(stageId);
 
     if (!stage) {
-      throw new NotFoundException("stage not found");
+      throw new NotFoundException('stage not found');
     }
 
     if (name) stage.name = name;
