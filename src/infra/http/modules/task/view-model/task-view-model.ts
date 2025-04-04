@@ -1,7 +1,15 @@
 import { Task } from "src/modules/task/entities/task";
 
 export class TaskViewModel {
-  static toHtpp({ id, title, createdAt, dueDate, position, stageId, description }: Task) {
+  static toHtpp({
+    id,
+    title,
+    createdAt,
+    dueDate,
+    position,
+    stageId,
+    description,
+  }: Task) {
     return {
       id,
       title,
@@ -9,7 +17,7 @@ export class TaskViewModel {
       dueDate,
       position,
       stageId,
-      description
+      description,
     };
   }
 }

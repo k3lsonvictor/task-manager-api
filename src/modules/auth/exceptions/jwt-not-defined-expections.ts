@@ -8,6 +8,8 @@ export class JwtNotDefinedException extends AppExceptions {
       status: HttpStatus.INTERNAL_SERVER_ERROR,
     });
 
-    console.error("Erro crítico: JWT_SECRET is not defined in environment variables");
+    console.error(
+      "Erro crítico: JWT_SECRET is not defined in environment variables",
+    );
   }
 }

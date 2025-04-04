@@ -13,7 +13,7 @@ export class SignInUseCase {
 
   async execute({ user }: SignInRequest) {
     const payload: UserPayload = {
-      sub: user.id,  // O ID do usuário
+      sub: user.id, // O ID do usuário
       email: user.email,
       name: user.name,
       createdAt: user.createdAt.toJSON(),
@@ -21,6 +21,6 @@ export class SignInUseCase {
 
     const jwtToken = this.jwtService.sign(payload);
 
-    return { access_token: jwtToken, userId: user.id };  // Retorna o token e o userId
+    return { access_token: jwtToken, userId: user.id }; // Retorna o token e o userId
   }
 }

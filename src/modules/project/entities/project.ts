@@ -1,5 +1,5 @@
-import { randomUUID } from 'crypto';
-import { Replace } from 'src/utils/replace';
+import { randomUUID } from "crypto";
+import { Replace } from "src/utils/replace";
 
 export interface ProjectSchema {
   name: string;
@@ -12,7 +12,13 @@ export class Project {
   public _id: string;
   private props: ProjectSchema;
 
-  constructor(props: Replace<ProjectSchema, {createdAt?: Date, description?: string | null }>, id?: string) {
+  constructor(
+    props: Replace<
+      ProjectSchema,
+      { createdAt?: Date; description?: string | null }
+    >,
+    id?: string,
+  ) {
     this._id = id ?? randomUUID();
     this.props = {
       ...props,
@@ -52,5 +58,4 @@ export class Project {
   set userId(userId: string) {
     this.props.userId = userId;
   }
-
 }

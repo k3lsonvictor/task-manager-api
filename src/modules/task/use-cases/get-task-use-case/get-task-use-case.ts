@@ -10,7 +10,7 @@ interface GetTaskRequest {
 export class GetTaskUseCase {
   constructor(private taskRepository: TaskRepository) {}
 
-  async execute({taskId}: GetTaskRequest) {
+  async execute({ taskId }: GetTaskRequest) {
     const task = await this.taskRepository.findById(taskId);
 
     if (!task) throw new Error("task not found");

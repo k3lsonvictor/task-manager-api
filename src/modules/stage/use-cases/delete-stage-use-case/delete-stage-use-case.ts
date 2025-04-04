@@ -9,7 +9,7 @@ interface DeleteStageRequest {
 export class DeleteStagetUseCase {
   constructor(private readonly stageRepository: StageRepository) {}
 
-  async execute({stageId}: DeleteStageRequest) {
+  async execute({ stageId }: DeleteStageRequest) {
     const stage = await this.stageRepository.findById(stageId);
 
     if (!stage) {

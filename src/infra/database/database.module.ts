@@ -29,7 +29,6 @@ import { PrismaTaskRepository } from "./prisma/repositories/prisma-task-reposito
       useClass: PrismaTaskRepository,
     },
   ],
-  exports: [UserRepository, ProjectRepository, StageRepository, TaskRepository]
+  exports: [UserRepository, ProjectRepository, StageRepository, TaskRepository],
 })
-
 export class DatabaseModule {}

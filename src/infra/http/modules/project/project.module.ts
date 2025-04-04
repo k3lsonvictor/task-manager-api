@@ -10,7 +10,12 @@ import { EditProjectUseCase } from "src/modules/project/use-cases/edit-project-u
 @Module({
   imports: [DatabaseModule],
   controllers: [ProjectController],
-  providers: [CreateProjectUseCase, GetProjectUseCase, GetProjectsUseCase, DeleteProjectUseCase, EditProjectUseCase]
+  providers: [
+    CreateProjectUseCase,
+    GetProjectUseCase,
+    GetProjectsUseCase,
+    DeleteProjectUseCase,
+    EditProjectUseCase,
+  ],
 })
-
 export class ProjectModule {}

@@ -16,14 +16,13 @@ import { SignInDTOValidateMiddleware } from "./middleware/sign-in-dto-validate-m
     UserModule,
     JwtModule.register({
       secret: process.env.JWT_SECRET,
-      signOptions: { expiresIn: process.env.JWT_EXPIRE }
-    })
+      signOptions: { expiresIn: process.env.JWT_EXPIRE },
+    }),
   ],
   controllers: [AuthController],
-  providers: [LocalStrategy, JwtStrategy, ValidateUserUseCase, SignInUseCase]
+  providers: [LocalStrategy, JwtStrategy, ValidateUserUseCase, SignInUseCase],
 })
-
-export class AuthModule { 
+export class AuthModule {
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(SignInDTOValidateMiddleware).forRoutes("/signIn");
   }

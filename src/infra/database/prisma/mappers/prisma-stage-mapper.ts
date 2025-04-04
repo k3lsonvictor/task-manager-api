@@ -1,4 +1,4 @@
-import { Stage as StageRaw } from "@prisma/client"
+import { Stage as StageRaw } from "@prisma/client";
 import { Stage } from "src/modules/stage/entities/stage";
 
 export class PrismaStageMapper {
@@ -12,11 +12,13 @@ export class PrismaStageMapper {
   }
 
   static toDomain({ createdAt, name, id, projectId }: StageRaw): Stage {
-    return new Stage({
-      createdAt,
-      name,
-      projectId
-    }, id
+    return new Stage(
+      {
+        createdAt,
+        name,
+        projectId,
+      },
+      id,
     );
   }
 }

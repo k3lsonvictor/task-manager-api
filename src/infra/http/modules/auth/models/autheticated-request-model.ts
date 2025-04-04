@@ -4,5 +4,5 @@ export class AuthenticatedRequestModel extends Request {
     email: string;
     name: string;
     createdAt: string;
-  }
+  };
 }

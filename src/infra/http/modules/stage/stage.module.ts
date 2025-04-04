@@ -10,7 +10,12 @@ import { GetStagesUseCase } from "src/modules/stage/use-cases/get-stages-use-cas
 @Module({
   imports: [DatabaseModule],
   controllers: [StageController],
-  providers: [CreateStagetUseCase, GetStageUseCase, GetStagesUseCase, DeleteStagetUseCase, EditstageUseCase]
+  providers: [
+    CreateStagetUseCase,
+    GetStageUseCase,
+    GetStagesUseCase,
+    DeleteStagetUseCase,
+    EditstageUseCase,
+  ],
 })
-
 export class StageModule {}

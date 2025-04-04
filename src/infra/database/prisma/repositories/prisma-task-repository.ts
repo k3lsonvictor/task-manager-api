@@ -37,7 +37,7 @@ export class PrismaTaskRepository implements TaskRepository {
   async findByStageId(stageId: string): Promise<Task[]> {
     const tasks = await this.prisma.task.findMany({
       where: { stageId },
-      orderBy: { position: 'asc' }, // Ordena por posição (caso seja necessário)
+      orderBy: { position: "asc" }, // Ordena por posição (caso seja necessário)
     });
 
     return tasks.map(PrismaTaskMapper.toDomain);
@@ -63,14 +63,14 @@ export class PrismaTaskRepository implements TaskRepository {
 
   async saveMany(tasks: Task[]): Promise<void> {
     console.log(tasks);
-  
+
     const taskData = tasks.map(PrismaTaskMapper.toPrisma);
-  
+
     // Atualiza cada task individualmente
     for (const task of taskData) {
       await this.prisma.task.update({
-        where: { id: task.id },  // Identifica a task pela ID
-        data: task,  // Atualiza com os novos dados
+        where: { id: task.id }, // Identifica a task pela ID
+        data: task, // Atualiza com os novos dados
       });
     }
   }

@@ -10,7 +10,12 @@ import { GetTasksUseCase } from "src/modules/task/use-cases/get-tasks-use-case/g
 @Module({
   imports: [DatabaseModule],
   controllers: [TaskController],
-  providers: [CreateTaskUseCase, GetTaskUseCase, GetTasksUseCase, DeleteTaskUseCase, EditTaskUseCase]
+  providers: [
+    CreateTaskUseCase,
+    GetTaskUseCase,
+    GetTasksUseCase,
+    DeleteTaskUseCase,
+    EditTaskUseCase,
+  ],
 })
-
 export class TaskModule {}

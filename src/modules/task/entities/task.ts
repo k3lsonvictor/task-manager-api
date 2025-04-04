@@ -17,7 +17,7 @@ export class Task {
   constructor(
     props: Replace<TaskSchema, { createdAt?: Date; position?: number }>,
     lastPosition: number = 0, // Última posição do stage
-    id?: string
+    id?: string,
   ) {
     this._id = id ?? randomUUID();
     this.props = {

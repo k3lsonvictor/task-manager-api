@@ -27,9 +27,11 @@ export default tseslint.config(
   },
   {
     rules: {
+      'prettier/prettier': 'error', // Garante que violações do Prettier sejam tratadas como erros
+      'no-console': 'warn', // Exemplo de regra adicional
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-floating-promises': 'warn',
-      '@typescript-eslint/no-unsafe-argument': 'warn'
+      '@typescript-eslint/no-unsafe-argument': 'warn',
     },
   },
 );

@@ -12,7 +12,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     if (!jwtSecret) {
       throw new JwtNotDefinedException();
     }
-    
+
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,

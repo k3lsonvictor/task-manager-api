@@ -15,11 +15,11 @@ export class GetStagesUseCase {
 
   async execute({ projectId }: GetStagesRequest) {
     const stages = await this.stageRepository.findAll(projectId);
-  
+
     const stagesWithBasicTasks = await Promise.all(
       stages.map(async (stage) => {
         const tasks = await this.taskRepository.findAll(stage._id);
-  
+
         return {
           id: stage._id, // Ajusta o ID
           name: stage.props.name, // Ajusta o nome
@@ -27,9 +27,9 @@ export class GetStagesUseCase {
           projectId: stage.props.projectId, // Ajusta o projectId
           tasks: tasks,
         };
-      })
+      }),
     );
-  
+
     return stagesWithBasicTasks;
   }
 }

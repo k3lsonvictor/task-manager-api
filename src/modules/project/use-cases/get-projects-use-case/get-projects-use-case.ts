@@ -8,7 +8,7 @@ export class GetProjectsUseCase {
   async execute(userId: string) {
     const projects = await this.projectRepository.findAll(userId);
 
-    if(!projects) return [];
+    if (!projects) return [];
 
     return projects;
   }
