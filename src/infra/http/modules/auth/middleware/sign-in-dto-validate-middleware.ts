@@ -1,5 +1,5 @@
 import { Injectable, NestMiddleware } from "@nestjs/common";
-import { NextFunction, Request, Response } from "express";
+import { NextFunction, Request } from "express";
 import { SignInBody } from "../dtos/sign-in-body";
 import { validate } from "class-validator";
 import { mapperClassValidationErrorToAppException } from "src/utils/mappers";
@@ -7,12 +7,12 @@ import { IncorrectValuesException } from "src/exceptions/incorretct-value-except
 
 @Injectable()
 export class SignInDTOValidateMiddleware implements NestMiddleware {
-  async use(req: Request, res: Response, next: NextFunction) {
-    const body = req.body;
+  async use(req: Request, next: NextFunction) {
+    const { email, password } = req.body as { email: string; password: string };
 
     const signInBody = new SignInBody();
-    signInBody.email = body.email;
-    signInBody.password = body.password;
+    signInBody.email = email;
+    signInBody.password = password;
 
     const validations = await validate(signInBody);
 

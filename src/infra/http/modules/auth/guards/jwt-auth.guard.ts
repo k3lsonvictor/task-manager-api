@@ -21,10 +21,10 @@ export class JwtAuthGuard extends AuthGuard("jwt") {
     return super.canActivate(context);
   }
 
-  handleRequest(err, user) {
+  handleRequest<TUser = any>(err: any, user: TUser): TUser {
     if (err || !user) {
       throw err || new InvalidAccessTokenException();
     }
-    return user;
+    return user as TUser;
   }
 }

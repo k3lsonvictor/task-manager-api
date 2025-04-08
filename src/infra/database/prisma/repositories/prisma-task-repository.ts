@@ -52,7 +52,6 @@ export class PrismaTaskRepository implements TaskRepository {
   }
 
   async save(task: Task): Promise<void> {
-    console.log(task);
     const taskRaw = PrismaTaskMapper.toPrisma(task);
 
     await this.prisma.task.update({

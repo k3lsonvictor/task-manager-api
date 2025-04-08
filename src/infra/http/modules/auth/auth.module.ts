@@ -1,5 +1,4 @@
 import { MiddlewareConsumer, Module } from "@nestjs/common";
-import { CreateUserUseCase } from "src/modules/user/use-cases/create-user-use-case/create-user-use-case";
 import { DatabaseModule } from "src/infra/database/database.module";
 import { AuthController } from "./auth.controller";
 import { UserModule } from "../user/user.module";

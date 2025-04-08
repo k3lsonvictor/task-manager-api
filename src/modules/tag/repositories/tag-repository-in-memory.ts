@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/await-thenable */
-/* eslint-disable @typescript-eslint/require-await */
 import { Tag } from "../entities/tag";
 import { TagRepository } from "./tag-repository";
 

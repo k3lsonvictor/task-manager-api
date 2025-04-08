@@ -22,7 +22,8 @@ export class CreateUserUseCase {
     const user = new User({
       name,
       email,
-      password: await hash(password, 10),
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+      password: (await hash(password, 10)) as string,
     });
 
     await this.userRepository.create(user);

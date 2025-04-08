@@ -84,7 +84,7 @@ export class TaskController {
       tagId,
     });
 
-    console.log(Task)
+    console.log(Task);
 
     return TaskViewModel.toHtpp(Task);
   }

@@ -46,7 +46,7 @@ export class StageController {
       projectId,
     });
 
-    console.log(stages)
+    console.log(stages);
 
     return stages.map((stage) => StagesViewModel.toHttp(stage));
   }
