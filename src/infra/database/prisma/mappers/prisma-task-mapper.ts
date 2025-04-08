@@ -10,6 +10,7 @@ export class PrismaTaskMapper {
     stageId,
     position,
     dueDate,
+    tagId,
   }: Task): TaskRaw {
     return {
       createdAt,
@@ -19,7 +20,7 @@ export class PrismaTaskMapper {
       position,
       id,
       dueDate: dueDate ?? null, // Garante que seja compatível com o tipo esperado
-      tagId: null, // Add tagId with a default value or map it appropriately
+      tagId: tagId ?? null, // Add tagId with a default value or map it appropriately
     };
   }
 
@@ -41,7 +42,7 @@ export class PrismaTaskMapper {
         stageId,
         position,
         dueDate,
-        tagId
+        tagId,
       },
       position,
       id,

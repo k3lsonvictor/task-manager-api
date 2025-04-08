@@ -5,7 +5,7 @@ export class TaskRepositoryInMemory implements TaskRepository {
   public tasks: Task[] = [];
 
   async create(task: Task): Promise<void> {
-    this.tasks.push(task);
+    await this.tasks.push(task);
   }
 
   async findById(id: string): Promise<Task | null> {
@@ -17,7 +17,7 @@ export class TaskRepositoryInMemory implements TaskRepository {
   }
 
   async findLastPosition(stageId: string): Promise<number> {
-    const lastTask = this.tasks
+    const lastTask = await this.tasks
       .filter((task) => task.stageId === stageId)
       .reduce((max, task) => Math.max(max, Number(task.props.position)), 0);
 
@@ -25,7 +25,7 @@ export class TaskRepositoryInMemory implements TaskRepository {
   }
 
   async findAll(stageId: string): Promise<Task[]> {
-    const tasks = this.tasks.filter((task) => task.stageId === stageId);
+    const tasks = await this.tasks.filter((task) => task.stageId === stageId);
 
     if (!tasks) return [];
 
@@ -33,12 +33,12 @@ export class TaskRepositoryInMemory implements TaskRepository {
   }
 
   async findByStageId(stageId: string): Promise<Task[]> {
-    const tasks = this.tasks.filter((task) => task.stageId === stageId);
+    const tasks = await this.tasks.filter((task) => task.stageId === stageId);
     return tasks;
   }
 
   async save(task: Task): Promise<void> {
-    const taskIndex = this.tasks.findIndex(
+    const taskIndex = await this.tasks.findIndex(
       (currentTask) => currentTask.id === task.id,
     );
 
@@ -52,6 +52,6 @@ export class TaskRepositoryInMemory implements TaskRepository {
   }
 
   async delete(id: string): Promise<void> {
-    this.tasks = this.tasks.filter((task) => task.id !== id);
+    this.tasks = await this.tasks.filter((task) => task.id !== id);
   }
 }
