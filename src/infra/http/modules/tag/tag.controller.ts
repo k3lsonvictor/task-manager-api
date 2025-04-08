@@ -48,7 +48,7 @@ export class TagController {
     return TagViewModel.toHtpp(tag);
   }
 
-  @Get("/:ProjectId")
+  @Get("/project/:ProjectId")
   async getTagsOfProject(@Param("ProjectId") ProjectId: string) {
     const tag = await this.getTagsUseCase.execute(ProjectId);
     return tag.map((tag) => TagViewModel.toHtpp(tag));

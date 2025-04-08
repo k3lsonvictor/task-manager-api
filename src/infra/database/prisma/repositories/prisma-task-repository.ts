@@ -30,7 +30,6 @@ export class PrismaTaskRepository implements TaskRepository {
     const tasks = await this.prisma.task.findMany({
       where: { stageId },
     });
-
     return tasks.map((task) => PrismaTaskMapper.toDomain(task));
   }
 

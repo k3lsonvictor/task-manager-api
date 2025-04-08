@@ -39,7 +39,10 @@ export class EditTaskUseCase {
     if (title) task.title = title;
     if (description !== undefined) task.description = description;
     if (dueDate) task.dueDate = dueDate;
-    if (tagId) task.tagId = tagId;
+    if (tagId) {
+      console.log("tagId", tagId);
+      task.tagId = tagId;
+    }
 
     // Se a task for movida para um novo estágio
     if (stageId !== task.stageId) {

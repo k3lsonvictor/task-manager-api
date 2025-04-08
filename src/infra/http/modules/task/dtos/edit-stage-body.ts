@@ -25,6 +25,10 @@ export class EditTaskBody {
   description?: string;
 
   @IsOptional()
+  @IsString()
+  tagId?: string;
+
+  @IsOptional()
   @IsDate()
   dueDate?: Date;
 }

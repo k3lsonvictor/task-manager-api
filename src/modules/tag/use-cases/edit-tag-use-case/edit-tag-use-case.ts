@@ -12,7 +12,7 @@ interface EditTagRequest {
 export class EditTagUseCase {
   constructor(private readonly tagRepository: TagRepository) {}
 
-  async execute({ tagId, name }: EditTagRequest): Promise<Tag> {
+  async execute({ tagId, name, color }: EditTagRequest): Promise<Tag> {
     const tag = await this.tagRepository.findById(tagId);
 
     if (!tag) {
@@ -20,6 +20,7 @@ export class EditTagUseCase {
     }
 
     if (name) tag.name = name;
+    if (color) tag.color = color;
 
     await this.tagRepository.save(tag);
 

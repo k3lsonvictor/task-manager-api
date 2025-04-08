@@ -6,9 +6,7 @@ import {
   Post,
   Patch,
   Delete,
-  Request,
 } from "@nestjs/common";
-import { AuthenticatedRequestModel } from "../auth/models/autheticated-request-model";
 import { CreateStagetUseCase } from "src/modules/stage/use-cases/create-stage-use-case/create-stage-use-case";
 import { DeleteStagetUseCase } from "src/modules/stage/use-cases/delete-stage-use-case/delete-stage-use-case";
 import { GetStageUseCase } from "src/modules/stage/use-cases/get-stage-use-case/get-stage-use-case";
@@ -48,7 +46,9 @@ export class StageController {
       projectId,
     });
 
-    return stages.map(StagesViewModel.toHttp);
+    console.log(stages)
+
+    return stages.map((stage) => StagesViewModel.toHttp(stage));
   }
 
   @Get(":id")

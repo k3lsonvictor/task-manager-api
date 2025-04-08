@@ -22,6 +22,7 @@ export class StagesViewModel {
         title: task.title, // Ajuste conforme a estrutura real de tasks
         position: task.position,
         stageId: task.stageId,
+        tag: task.tag
       })),
     };
   }

@@ -47,8 +47,6 @@ export class TaskController {
       taskId,
     });
 
-    console.log(Task);
-
     return TaskViewModel.toHtpp(Task);
   }
 
@@ -74,7 +72,7 @@ export class TaskController {
 
   @Patch(":id")
   async editTask(@Param("id") taskId: string, @Body() body: EditTaskBody) {
-    const { title, stageId, description, dueDate, position } = body;
+    const { title, stageId, description, dueDate, position, tagId } = body;
 
     const Task = await this.editTaskUseCase.execute({
       stageId,
@@ -83,7 +81,10 @@ export class TaskController {
       description,
       dueDate,
       position,
+      tagId,
     });
+
+    console.log(Task)
 
     return TaskViewModel.toHtpp(Task);
   }
