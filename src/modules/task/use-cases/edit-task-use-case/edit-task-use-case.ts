@@ -9,6 +9,7 @@ interface EditTaskRequest {
   description?: string;
   position?: number;
   dueDate?: Date;
+  tagId?: string | null;
 }
 
 @Injectable()
@@ -22,6 +23,7 @@ export class EditTaskUseCase {
     description,
     position,
     dueDate,
+    tagId,
   }: EditTaskRequest): Promise<Task> {
     const task = await this.taskRepository.findById(taskId);
 
@@ -37,6 +39,7 @@ export class EditTaskUseCase {
     if (title) task.title = title;
     if (description !== undefined) task.description = description;
     if (dueDate) task.dueDate = dueDate;
+    if (tagId) task.tagId = tagId;
 
     // Se a task for movida para um novo estágio
     if (stageId !== task.stageId) {

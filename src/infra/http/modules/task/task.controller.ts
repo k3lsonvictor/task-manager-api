@@ -47,6 +47,8 @@ export class TaskController {
       taskId,
     });
 
+    console.log(Task);
+
     return TaskViewModel.toHtpp(Task);
   }
 
@@ -56,7 +58,7 @@ export class TaskController {
     return task.map((task) => TaskViewModel.toHtpp(task));
   }
 
-  @Get("/:projectId")
+  @Get("/project/:projectId")
   async getTasksOfProject(@Param("projectId") projectId: string) {
     const stages = await this.getStagesUseCase.execute({ projectId });
     const tasks = await Promise.all(

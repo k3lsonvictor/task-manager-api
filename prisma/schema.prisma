@@ -60,7 +60,19 @@ model Task {
   stageId String
   stage   Stage  @relation(fields: [stageId], references: [id], onDelete: Cascade)
 
+  tagId String?
+  tag   Tag?    @relation(fields: [tagId], references: [id], onDelete: Cascade)
   // assignees TaskAssignee[]
+}
+
+model Tag {
+  id        String   @id @default(uuid())
+  name      String
+  color     String
+  projectId String
+  createdAt DateTime @default(now())
+
+  tasks Task[] // Relacionamento com tarefas
 }
 
 // model TaskAssignee {

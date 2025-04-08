@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/await-thenable */
+/* eslint-disable @typescript-eslint/require-await */
 import { Stage } from "../entities/stage";
 import { StageRepository } from "./stage-repository";
 

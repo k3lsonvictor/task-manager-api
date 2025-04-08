@@ -19,6 +19,7 @@ export class PrismaTaskMapper {
       position,
       id,
       dueDate: dueDate ?? null, // Garante que seja compatível com o tipo esperado
+      tagId: null, // Add tagId with a default value or map it appropriately
     };
   }
 
@@ -30,6 +31,7 @@ export class PrismaTaskMapper {
     stageId,
     position,
     dueDate,
+    tagId,
   }: TaskRaw): Task {
     return new Task(
       {
@@ -39,6 +41,7 @@ export class PrismaTaskMapper {
         stageId,
         position,
         dueDate,
+        tagId
       },
       position,
       id,

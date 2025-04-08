@@ -7,6 +7,7 @@ import { JwtAuthGuard } from "./infra/http/modules/auth/guards/jwt-auth.guard";
 import { ProjectModule } from "./infra/http/modules/project/project.module";
 import { StageModule } from "./infra/http/modules/stage/stage.module";
 import { TaskModule } from "./infra/http/modules/task/task.module";
+import { TagModule } from "./infra/http/modules/tag/tag.module";
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { TaskModule } from "./infra/http/modules/task/task.module";
     ProjectModule,
     StageModule,
     TaskModule,
+    TagModule,
     DatabaseModule,
     AuthModule,
   ],

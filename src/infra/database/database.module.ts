@@ -8,6 +8,8 @@ import { StageRepository } from "src/modules/stage/repositories/stage-repository
 import { PrismaStageRepository } from "./prisma/repositories/prisma-stage-repository";
 import { TaskRepository } from "src/modules/task/repositories/task-repository";
 import { PrismaTaskRepository } from "./prisma/repositories/prisma-task-repository";
+import { TagRepository } from "src/modules/tag/repositories/tag-repository";
+import { PrismaTagRepository } from "./prisma/repositories/prisma-tag-repository";
 
 @Module({
   providers: [
@@ -28,7 +30,17 @@ import { PrismaTaskRepository } from "./prisma/repositories/prisma-task-reposito
       provide: TaskRepository,
       useClass: PrismaTaskRepository,
     },
+    {
+      provide: TagRepository,
+      useClass: PrismaTagRepository,
+    },
   ],
-  exports: [UserRepository, ProjectRepository, StageRepository, TaskRepository],
+  exports: [
+    UserRepository,
+    ProjectRepository,
+    StageRepository,
+    TaskRepository,
+    TagRepository,
+  ],
 })
 export class DatabaseModule {}

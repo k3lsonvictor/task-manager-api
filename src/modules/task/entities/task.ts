@@ -8,6 +8,7 @@ interface TaskSchema {
   position: number;
   createdAt: Date;
   stageId: string;
+  tagId: string | null;
 }
 
 export class Task {
@@ -24,6 +25,7 @@ export class Task {
       ...props,
       createdAt: props.createdAt ?? new Date(),
       position: props.position ?? lastPosition + 1, // Define como última posição
+      tagId: props.tagId ?? null,
     };
   }
 
@@ -79,5 +81,12 @@ export class Task {
 
   set description(value: string) {
     this.props.description = value;
+  }
+
+  get tagId(): string | null {
+    return this.props.tagId ?? null;
+  }
+  set tagId(value: string | null) {
+    this.props.tagId = value;
   }
 }

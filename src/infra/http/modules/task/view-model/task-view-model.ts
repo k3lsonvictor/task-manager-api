@@ -9,6 +9,7 @@ export class TaskViewModel {
     position,
     stageId,
     description,
+    tagId,
   }: Task) {
     return {
       id,
@@ -18,6 +19,7 @@ export class TaskViewModel {
       position,
       stageId,
       description,
+      tagId,
     };
   }
 }

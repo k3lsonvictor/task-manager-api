@@ -23,6 +23,7 @@ export class CreateTaskUseCase {
       description,
       stageId,
       position: lastPosition + 1, // 🔥 Garante que a nova posição seja a última
+      tagId: null,
     });
 
     await this.taskRepository.create(task);

@@ -31,7 +31,7 @@ export class PrismaTaskRepository implements TaskRepository {
       where: { stageId },
     });
 
-    return tasks.map(PrismaTaskMapper.toDomain);
+    return tasks.map((task) => PrismaTaskMapper.toDomain(task));
   }
 
   async findByStageId(stageId: string): Promise<Task[]> {
@@ -40,7 +40,7 @@ export class PrismaTaskRepository implements TaskRepository {
       orderBy: { position: "asc" }, // Ordena por posição (caso seja necessário)
     });
 
-    return tasks.map(PrismaTaskMapper.toDomain);
+    return tasks.map((task) => PrismaTaskMapper.toDomain(task));
   }
 
   async findLastPosition(stageId: string): Promise<number> {
@@ -62,9 +62,7 @@ export class PrismaTaskRepository implements TaskRepository {
   }
 
   async saveMany(tasks: Task[]): Promise<void> {
-    console.log(tasks);
-
-    const taskData = tasks.map(PrismaTaskMapper.toPrisma);
+    const taskData = tasks.map((task) => PrismaTaskMapper.toPrisma(task));
 
     // Atualiza cada task individualmente
     for (const task of taskData) {
