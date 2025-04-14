@@ -7,7 +7,7 @@ import { IncorrectValuesException } from "src/exceptions/incorretct-value-except
 
 @Injectable()
 export class SignInDTOValidateMiddleware implements NestMiddleware {
-  async use(req: Request, next: NextFunction) {
+  async use(req: Request, res: Response, next: NextFunction) {
     const { email, password } = req.body as { email: string; password: string };
 
     const signInBody = new SignInBody();
