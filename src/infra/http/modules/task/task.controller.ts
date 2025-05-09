@@ -76,6 +76,7 @@ export class TaskController {
   async editTask(@Param("id") taskId: string, @Body() body: EditTaskBody) {
     const { title, stageId, description, dueDate, position, tagId } = body;
 
+    console.log("body", body);
     const Task = await this.editTaskUseCase.execute({
       stageId,
       taskId,
