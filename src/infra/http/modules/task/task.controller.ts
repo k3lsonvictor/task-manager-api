@@ -26,16 +26,18 @@ export class TaskController {
     private getTaskUseCase: GetTaskUseCase,
     private getTasksUseCase: GetTasksUseCase,
     private getStagesUseCase: GetStagesUseCase,
-  ) {}
+  ) { }
 
   @Post()
   async createTask(@Body() body: CreateTaskBody) {
-    const { title, stageId, description } = body;
+    const { title, stageId, description, tagId } = body;
 
+    console.log("body", body);
     const Task = await this.createTaskUseCase.execute({
       title,
       stageId,
       description,
+      tagId,
     });
 
     return TaskViewModel.toHtpp(Task);

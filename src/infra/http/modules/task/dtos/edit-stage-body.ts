@@ -12,14 +12,17 @@ export class EditTaskBody {
   @IsString()
   title?: string;
 
+  @IsOptional()
   @IsNotEmpty()
   @IsString()
   stageId: string;
 
+  @IsOptional()
   @Optional()
   @IsNumber()
   position?: number;
 
+  @IsOptional()
   @IsOptional()
   @IsString()
   description?: string;
@@ -28,6 +31,7 @@ export class EditTaskBody {
   @IsString()
   tagId?: string;
 
+  @IsOptional()
   @IsOptional()
   @IsDate()
   dueDate?: Date;

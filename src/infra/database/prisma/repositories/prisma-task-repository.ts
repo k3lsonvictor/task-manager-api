@@ -6,7 +6,7 @@ import { PrismaTaskMapper } from "../mappers/prisma-task-mapper";
 
 @Injectable()
 export class PrismaTaskRepository implements TaskRepository {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) { }
 
   async create(task: Task): Promise<void> {
     const taskRaw = PrismaTaskMapper.toPrisma(task);
@@ -54,9 +54,14 @@ export class PrismaTaskRepository implements TaskRepository {
   async save(task: Task): Promise<void> {
     const taskRaw = PrismaTaskMapper.toPrisma(task);
 
+    console.log("taskRaw", taskRaw);
+
     await this.prisma.task.update({
       where: { id: task.id },
-      data: taskRaw,
+      data: {
+        ...taskRaw,
+        tagId: task.tagId ?? null,
+      },
     });
   }
 

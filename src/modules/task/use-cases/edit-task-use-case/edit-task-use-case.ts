@@ -14,7 +14,7 @@ interface EditTaskRequest {
 
 @Injectable()
 export class EditTaskUseCase {
-  constructor(private readonly taskRepository: TaskRepository) {}
+  constructor(private readonly taskRepository: TaskRepository) { }
 
   async execute({
     taskId,
@@ -31,6 +31,8 @@ export class EditTaskUseCase {
       throw new NotFoundException("task not found");
     }
 
+    console.log("tagId!!!", tagId)
+
     // Recupera todas as tasks do mesmo stageId e ordena pela posição
     const tasksInStage = await this.taskRepository.findByStageId(stageId);
     tasksInStage.sort((a, b) => a.position - b.position);
@@ -39,8 +41,11 @@ export class EditTaskUseCase {
     if (title) task.title = title;
     if (description !== undefined) task.description = description;
     if (dueDate) task.dueDate = dueDate;
-    if (tagId) {
-      console.log("tagId", tagId);
+    if (tagId === null || tagId === undefined) {
+      console.log("Removing tag from task");
+      task.tagId = null; // Permite desvincular a tag
+    } else {
+      console.log("Updating tagId", tagId);
       task.tagId = tagId;
     }
 
