@@ -1,5 +1,12 @@
-import { Body, Controller, Get, Param, Post, Patch, Delete, Request } from "@nestjs/common";
-import { AuthenticatedRequestModel } from "../auth/models/autheticated-request-model";
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Patch,
+  Delete,
+} from "@nestjs/common";
 import { CreateStagetUseCase } from "src/modules/stage/use-cases/create-stage-use-case/create-stage-use-case";
 import { DeleteStagetUseCase } from "src/modules/stage/use-cases/delete-stage-use-case/delete-stage-use-case";
 import { GetStageUseCase } from "src/modules/stage/use-cases/get-stage-use-case/get-stage-use-case";
@@ -22,9 +29,7 @@ export class StageController {
   ) {}
 
   @Post()
-  async createStage(
-    @Body() body: CreateStageBody
-  ) {
+  async createStage(@Body() body: CreateStageBody) {
     const { name, projectId } = body;
 
     const Stage = await this.createStageUseCase.execute({
@@ -36,47 +41,39 @@ export class StageController {
   }
 
   @Get(":projectId")
-  async getStages(
-    @Param("projectId") projectId: string,
-  ) {
+  async getStages(@Param("projectId") projectId: string) {
     const stages = await this.getStagesUseCase.execute({
       projectId,
-    })
+    });
 
-    return stages.map(StagesViewModel.toHttp);
+    console.log(stages);
+
+    return stages.map((stage) => StagesViewModel.toHttp(stage));
   }
 
   @Get(":id")
-  async getStage(
-    @Param("id") stageId: string,
-  ) {
+  async getStage(@Param("id") stageId: string) {
     const Stage = await this.getStageUseCase.execute({
-      stageId
+      stageId,
     });
 
     return StageViewModel.toHtpp(Stage);
   }
 
   @Patch(":id")
-  async editStage(
-    @Param("id") stageId: string,
-    @Body() body: EditStageBody
-  ) {
+  async editStage(@Param("id") stageId: string, @Body() body: EditStageBody) {
     const { name } = body;
 
     const Stage = await this.editStageUseCase.execute({
       stageId,
-      name
+      name,
     });
 
     return StageViewModel.toHtpp(Stage);
   }
 
   @Delete(":id")
-  async deleteStage(
-    @Param("id") stageId: string
-
-  ) {
+  async deleteStage(@Param("id") stageId: string) {
     await this.deleteStageUseCase.execute({
       stageId,
     });

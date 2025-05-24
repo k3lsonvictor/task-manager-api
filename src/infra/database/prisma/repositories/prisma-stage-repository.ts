@@ -31,7 +31,7 @@ export class PrismaStageRepository implements StageRepository {
       where: { projectId },
     });
 
-    return stages.map(PrismaStageMapper.toDomain);
+    return stages.map((stage) => PrismaStageMapper.toDomain(stage));
   }
 
   async save(stage: Stage): Promise<void> {

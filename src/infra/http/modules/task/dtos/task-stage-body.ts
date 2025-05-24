@@ -12,4 +12,8 @@ export class CreateTaskBody {
   @IsString()
   @IsOptional()
   description?: string;
+
+  @IsString()
+  @IsOptional()
+  tagId?: string;
 }

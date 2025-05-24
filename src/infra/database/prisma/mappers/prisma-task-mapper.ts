@@ -1,8 +1,17 @@
-import { Task as TaskRaw } from "@prisma/client"
+import { Task as TaskRaw } from "@prisma/client";
 import { Task } from "src/modules/task/entities/task";
 
 export class PrismaTaskMapper {
-  static toPrisma({ createdAt, title, id, description, stageId, position, dueDate }: Task): TaskRaw {
+  static toPrisma({
+    createdAt,
+    title,
+    id,
+    description,
+    stageId,
+    position,
+    dueDate,
+    tagId,
+  }: Task): TaskRaw {
     return {
       createdAt,
       title,
@@ -11,10 +20,20 @@ export class PrismaTaskMapper {
       position,
       id,
       dueDate: dueDate ?? null, // Garante que seja compatível com o tipo esperado
+      tagId: tagId ?? null, // Add tagId with a default value or map it appropriately
     };
   }
 
-  static toDomain({ createdAt, title, id, description, stageId, position, dueDate }: TaskRaw): Task {
+  static toDomain({
+    createdAt,
+    title,
+    id,
+    description,
+    stageId,
+    position,
+    dueDate,
+    tagId,
+  }: TaskRaw): Task {
     return new Task(
       {
         createdAt,
@@ -22,10 +41,11 @@ export class PrismaTaskMapper {
         description,
         stageId,
         position,
-        dueDate
+        dueDate,
+        tagId,
       },
       position,
-      id
+      id,
     );
   }
 }

@@ -7,7 +7,6 @@ import { GetUserUseCase } from "src/modules/user/use-cases/get-user-use-case/get
 @Module({
   imports: [DatabaseModule],
   controllers: [UserController],
-  providers: [CreateUserUseCase, GetUserUseCase]
+  providers: [CreateUserUseCase, GetUserUseCase],
 })
-
 export class UserModule {}

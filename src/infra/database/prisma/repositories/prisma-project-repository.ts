@@ -31,7 +31,7 @@ export class PrismaProjectRepository implements ProjectRepository {
       where: { userId },
     });
 
-    return projects.map(PrismaProjectMapper.toDomain);
+    return projects.map((project) => PrismaProjectMapper.toDomain(project));
   }
 
   async save(project: Project): Promise<void> {

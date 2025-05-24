@@ -1,14 +1,11 @@
-import {
-  ExecutionContext,
-  Injectable,
-} from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
-import { IS_PUBLIC_KEY } from '../decorators/is-public';
-import { Reflector } from '@nestjs/core';
-import { InvalidAccessTokenException } from 'src/exceptions/invalid-acess-token-exception';
+import { ExecutionContext, Injectable } from "@nestjs/common";
+import { AuthGuard } from "@nestjs/passport";
+import { IS_PUBLIC_KEY } from "../decorators/is-public";
+import { Reflector } from "@nestjs/core";
+import { InvalidAccessTokenException } from "src/exceptions/invalid-acess-token-exception";
 
 @Injectable()
-export class JwtAuthGuard extends AuthGuard('jwt') {
+export class JwtAuthGuard extends AuthGuard("jwt") {
   constructor(private reflector: Reflector) {
     super();
   }
@@ -24,10 +21,10 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
     return super.canActivate(context);
   }
 
-  handleRequest(err, user) {
+  handleRequest<TUser = any>(err: any, user: TUser): TUser {
     if (err || !user) {
       throw err || new InvalidAccessTokenException();
     }
-    return user;
+    return user as TUser;
   }
 }

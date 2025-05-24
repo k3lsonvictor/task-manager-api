@@ -10,15 +10,13 @@ interface CreateStageRequest {
 
 @Injectable()
 export class CreateStagetUseCase {
-  constructor(
-    private stageRepository: StageRepository,
-  ) {}
+  constructor(private stageRepository: StageRepository) {}
 
   async execute({ name, projectId }: CreateStageRequest) {
     const stage = new Stage({
       name,
       projectId,
-    })
+    });
 
     await this.stageRepository.create(stage);
 

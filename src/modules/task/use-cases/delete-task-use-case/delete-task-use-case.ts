@@ -9,7 +9,7 @@ interface DeleteTaskRequest {
 export class DeleteTaskUseCase {
   constructor(private readonly TaskRepository: TaskRepository) {}
 
-  async execute({taskId}: DeleteTaskRequest) {
+  async execute({ taskId }: DeleteTaskRequest) {
     const task = await this.TaskRepository.findById(taskId);
 
     if (!task) {

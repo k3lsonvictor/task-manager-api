@@ -6,6 +6,6 @@ export class AuthValuesIncorrectException extends AppExceptions {
     super({
       message: "Email or password incorrects",
       status: HttpStatus.UNAUTHORIZED,
-    })
+    });
   }
 }

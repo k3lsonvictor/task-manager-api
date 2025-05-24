@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { UserRepository } from "../../repositories/user-repository";
-import { hash } from "bcrypt"
+import { hash } from "bcrypt";
 import { User } from "../../entities/user";
 import { UserWithSameEmailExpection } from "../../expections/user-with-same-email-exception";
 
@@ -22,9 +22,10 @@ export class CreateUserUseCase {
     const user = new User({
       name,
       email,
-      password: await hash(password, 10)
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+      password: (await hash(password, 10)) as string,
     });
-    
+
     await this.userRepository.create(user);
 
     return user;

@@ -6,7 +6,7 @@ import { PrismaTaskMapper } from "../mappers/prisma-task-mapper";
 
 @Injectable()
 export class PrismaTaskRepository implements TaskRepository {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) { }
 
   async create(task: Task): Promise<void> {
     const taskRaw = PrismaTaskMapper.toPrisma(task);
@@ -30,17 +30,16 @@ export class PrismaTaskRepository implements TaskRepository {
     const tasks = await this.prisma.task.findMany({
       where: { stageId },
     });
-
-    return tasks.map(PrismaTaskMapper.toDomain);
+    return tasks.map((task) => PrismaTaskMapper.toDomain(task));
   }
 
   async findByStageId(stageId: string): Promise<Task[]> {
     const tasks = await this.prisma.task.findMany({
       where: { stageId },
-      orderBy: { position: 'asc' }, // Ordena por posição (caso seja necessário)
+      orderBy: { position: "asc" }, // Ordena por posição (caso seja necessário)
     });
 
-    return tasks.map(PrismaTaskMapper.toDomain);
+    return tasks.map((task) => PrismaTaskMapper.toDomain(task));
   }
 
   async findLastPosition(stageId: string): Promise<number> {
@@ -55,22 +54,25 @@ export class PrismaTaskRepository implements TaskRepository {
   async save(task: Task): Promise<void> {
     const taskRaw = PrismaTaskMapper.toPrisma(task);
 
+    console.log("taskRaw", taskRaw);
+
     await this.prisma.task.update({
       where: { id: task.id },
-      data: taskRaw,
+      data: {
+        ...taskRaw,
+        tagId: task.tagId ?? null,
+      },
     });
   }
 
   async saveMany(tasks: Task[]): Promise<void> {
-    console.log(tasks);
-  
-    const taskData = tasks.map(PrismaTaskMapper.toPrisma);
-  
+    const taskData = tasks.map((task) => PrismaTaskMapper.toPrisma(task));
+
     // Atualiza cada task individualmente
     for (const task of taskData) {
       await this.prisma.task.update({
-        where: { id: task.id },  // Identifica a task pela ID
-        data: task,  // Atualiza com os novos dados
+        where: { id: task.id }, // Identifica a task pela ID
+        data: task, // Atualiza com os novos dados
       });
     }
   }

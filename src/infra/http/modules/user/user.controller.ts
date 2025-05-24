@@ -9,8 +9,8 @@ import { GetUserUseCase } from "src/modules/user/use-cases/get-user-use-case/get
 export class UserController {
   constructor(
     private createUserUseCase: CreateUserUseCase,
-    private getUserUseCase: GetUserUseCase
-  ) { }
+    private getUserUseCase: GetUserUseCase,
+  ) {}
 
   @Post()
   @Public()
@@ -21,15 +21,13 @@ export class UserController {
       name,
       email,
       password,
-    })
+    });
 
     return UserViewModel.toHttp(user);
   }
 
   @Get(":id")
-  async getUser(
-    @Param("id") id: string
-  ) {
+  async getUser(@Param("id") id: string) {
     const user = await this.getUserUseCase.execute({ id });
 
     return UserViewModel.toHttp(user);

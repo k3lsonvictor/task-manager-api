@@ -5,12 +5,12 @@ export interface AppExceptionsProps {
   status: HttpStatus;
   fields?: {
     [key: string]: string;
-  }
+  };
 }
 
 export class AppExceptions extends HttpException {
   constructor({ message, status, fields }: AppExceptionsProps) {
-    super (
+    super(
       {
         message,
         fields,
