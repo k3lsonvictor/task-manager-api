@@ -13,7 +13,7 @@ export class GetStagesUseCase {
     private stageRepository: StageRepository,
     private taskRepository: TaskRepository,
     private tagRepository: TagRepository,
-  ) {}
+  ) { }
 
   async execute({ projectId }: GetStagesRequest) {
     const stages = await this.stageRepository.findAll(projectId);
@@ -36,18 +36,20 @@ export class GetStagesUseCase {
         );
 
         return {
-          id: stage._id, // Ajusta o ID
-          name: stage.props.name, // Ajusta o nome
-          createdAt: stage.props.createdAt, // Ajusta a data
-          projectId: stage.props.projectId, // Ajusta o projectId
-          tasks: tasksWithTags.map((task) => ({
-            id: task._id,
-            title: task.props.title,
-            description: task.props.description,
-            position: task.props.position,
-            dueDate: task.props.dueDate,
-            tag: task.tag,
-          })),
+          id: stage._id,
+          name: stage.props.name,
+          createdAt: stage.props.createdAt,
+          projectId: stage.props.projectId,
+          tasks: tasksWithTags
+            .sort((a, b) => a.props.position - b.props.position) // Ordena pelo position
+            .map((task) => ({
+              id: task._id,
+              title: task.props.title,
+              description: task.props.description,
+              position: task.props.position,
+              dueDate: task.props.dueDate,
+              tag: task.tag,
+            })),
         };
       }),
     );

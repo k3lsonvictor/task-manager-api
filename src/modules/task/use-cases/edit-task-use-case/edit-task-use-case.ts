@@ -51,7 +51,7 @@ export class EditTaskUseCase {
 
     // Se a task for movida para um novo estágio
     if (stageId !== task.stageId && stageId !== null && stageId !== undefined) {
-      // Recupera as tasks do novo estágio e ajusta as posições
+      // Recupera as taasks do novo estágio e ajusta as posições
       const tasksInNewStage = await this.taskRepository.findByStageId(stageId);
       const newPosition = this.getNextAvailablePosition(tasksInNewStage);
 
